@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The film — Lake District Tweed prototype</title>
+<meta name="robots" content="noindex">
+<link rel="preload" href="assets/fonts/ldt26-hackney.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/memo-base.css">
+<link rel="stylesheet" href="css/ldt-shopify.css">
+<link rel="stylesheet" href="css/review.css">
+</head>
+<body>
+
+<!-- ==================================================================
+     PROTOTYPE REVIEW BAR (not part of the Shopify build)
+     ================================================================== -->
+<div class="review-bar" id="reviewBar" aria-label="Prototype tools">
+  <span class="review-bar__label">LDT homepage prototype</span>
+  <button type="button" class="review-bar__btn" data-toggle="map" aria-pressed="false" title="Show how each section is built in Shopify">Shopify map</button>
+  <a class="review-bar__btn" href="index.html">← Homepage</a>
+  <a class="review-bar__btn" href="build-guide.html" title="Step-by-step build guide">Build guide →</a>
+</div>
+
+<!-- ==================================================================
+     HEADER GROUP
+     ================================================================== -->
+<div id="shopify-section-announcement" class="shopify-section">
+  <div class="announcement"><span class="announcement__text" data-draft>Delivery message — to confirm</span></div>
+</div>
+
+<div id="shopify-section-header" class="shopify-section" data-step="02">
+  <div class="header-wrapper" id="headerWrapper">
+    <header class="site-header" id="siteHeader">
+      <div class="page-width header-layout header-layout--left-center">
+        <div class="header-item header-item--logo">
+          <h1 class="site-header__logo">
+            <a href="index.html" class="site-header__logo-link"><img src="assets/brand/ldt-logo-label-landscape.svg" alt="Lake District Tweed" width="180" height="70"></a>
+          </h1>
+        </div>
+        <nav class="header-item header-item--navigation" aria-label="Primary">
+          <ul class="site-nav">
+            <li><a class="site-nav__link" href="index.html#categories">Throws</a></li>
+            <li><a class="site-nav__link" href="index.html#categories">Clothing</a></li>
+            <li><a class="site-nav__link" href="index.html#categories">Homeware</a></li>
+            <li><a class="site-nav__link" href="index.html#categories">Tweed</a></li>
+            <li><a class="site-nav__link" href="index.html#categories">Yarn</a></li>
+            <li class="site-nav__item--divider" aria-hidden="true"></li>
+            <li><a class="site-nav__link" href="index.html#farmers">Our farmers</a></li>
+            <li><a class="site-nav__link" href="index.html#about">About</a></li>
+          </ul>
+        </nav>
+        <div class="header-item header-item--icons">
+          <button class="site-nav__link site-nav__link--icon site-nav__link--menu" type="button" aria-label="Open menu" aria-controls="menuDrawer" aria-expanded="false" id="menuOpen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+          </button>
+          <a class="site-nav__link site-nav__link--icon site-nav__link--search" href="#" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+          </a>
+          <a class="site-nav__link site-nav__link--icon site-nav__link--account" href="#" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+          </a>
+          <a class="site-nav__link site-nav__link--icon site-nav__link--cart" href="#" aria-label="Basket, 0 items">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 8h16l-1.2 12H5.2z"/><path d="M8.5 8a3.5 3.5 0 0 1 7 0"/></svg>
+            <span class="cart-link__count">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+  </div>
+</div>
+
+<!-- Menu drawer (Motion's mobile menu drawer) -->
+<div class="drawer" id="menuDrawer" aria-hidden="true">
+  <div class="drawer__scrim" data-close-drawer></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <button class="drawer__close" type="button" aria-label="Close menu" data-close-drawer>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>
+    </button>
+    <ul class="mobile-nav">
+      <li><a class="mobile-nav__link mobile-nav__link--primary" href="index.html#categories" data-close-drawer>Throws</a></li>
+      <li><a class="mobile-nav__link mobile-nav__link--primary" href="index.html#categories" data-close-drawer>Clothing</a></li>
+      <li><a class="mobile-nav__link mobile-nav__link--primary" href="index.html#categories" data-close-drawer>Homeware</a></li>
+      <li><a class="mobile-nav__link mobile-nav__link--primary" href="index.html#categories" data-close-drawer>Tweed</a></li>
+      <li><a class="mobile-nav__link mobile-nav__link--primary" href="index.html#categories" data-close-drawer>Yarn</a></li>
+    </ul>
+    <ul class="mobile-nav mobile-nav__sub">
+      <li><a class="mobile-nav__link" href="index.html#farmers" data-close-drawer>Our farmers</a></li>
+      <li><a class="mobile-nav__link" href="index.html#about" data-close-drawer>About</a></li>
+      <li><a class="mobile-nav__link" href="#" data-close-drawer>Account</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ==================================================================
+     PAGE: The film (Online Store › Pages › "The film" → /pages/the-film)
+     Content: the Vimeo embed, added with the page editor's Insert video button.
+     In this prototype the player is a local video standing in for Vimeo.
+     ================================================================== -->
+<main id="MainContent">
+<div id="shopify-section-film" class="shopify-section" data-step="08">
+  <div class="page-width page-content">
+    <header class="section-header"><h1 class="section-header__title h2">The film</h1></header>
+    <div class="rte">
+      <div class="video-wrapper"><video controls playsinline preload="metadata" poster="assets/video/hero-poster.jpg"><source src="assets/video/brand-film-1080.mp4" type="video/mp4"></video></div>
+    </div>
+  </div>
+</div>
+</main>
+
+<!-- ==================================================================
+     08 · FOOTER (Footer group › Footer: Newsletter block + 3 Menu blocks + Logo & social)
+     Motion markup: footer blocks are .grid__item columns; the newsletter block has .grid-newsletter
+     ================================================================== -->
+<div id="shopify-section-footer" class="shopify-section" data-step="09">
+  <footer class="site-footer">
+    <div class="page-width">
+      <div class="grid footer-grid">
+        <div class="grid__item grid-newsletter" style="width:40%">
+          <h2 class="footer__title" data-draft>News from the valleys.</h2>
+          <div class="footer__collapsible">
+            <p data-draft>Occasional letters about new cloth, the farms and the year on the fells.</p>
+            <form class="contact-form" onsubmit="event.preventDefault()">
+              <label class="visually-hidden" for="newsletterEmail">Enter your email</label>
+              <div class="footer__newsletter">
+                <input type="email" class="footer__newsletter-input" id="newsletterEmail" placeholder="Enter your email" autocomplete="email">
+                <button type="submit" class="footer__newsletter-btn" aria-label="Subscribe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="grid__item" style="width:20%">
+          <h2 class="footer__title">Shop</h2>
+          <ul class="site-footer__linklist">
+            <li><a href="#">Throws</a></li><li><a href="#">Clothing</a></li><li><a href="#">Homeware</a></li>
+            <li><a href="#">Tweed</a></li><li><a href="#">Yarn</a></li><li><a href="#">All products</a></li>
+          </ul>
+        </div>
+        <div class="grid__item" style="width:20%">
+          <h2 class="footer__title">About</h2>
+          <ul class="site-footer__linklist">
+            <li><a href="#">Our farmers</a></li><li><a href="#">Our story</a></li><li><a href="film.html">The film</a></li><li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="grid__item" style="width:20%">
+          <h2 class="footer__title">Help</h2>
+          <ul class="site-footer__linklist">
+            <li><a href="#">Delivery</a></li><li><a href="#">Returns</a></li><li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__logo-social">
+        <img class="footer__logo" src="assets/brand/ldt-logo-label-landscape.svg" alt="Lake District Tweed" width="200" height="78" loading="lazy">
+        <ul class="footer__social" aria-label="Social">
+          <li><a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".8" fill="currentColor"/></svg></a></li>
+          <li><a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M14 21v-7.5h2.6l.4-3H14V8.7c0-.9.3-1.5 1.6-1.5H17V4.6A20 20 0 0 0 14.8 4.5c-2.3 0-3.8 1.4-3.8 3.9v2.1H8.5v3H11V21"/></svg></a></li>
+        </ul>
+      </div>
+      <div class="site-footer__bottom">
+        <span class="footer__copyright">© 2026 Lake District Tweed</span>
+        <ul class="payment-icons" aria-label="Payment methods (Shopify renders these natively)">
+          <li>Visa</li><li>Mastercard</li><li>Amex</li><li>PayPal</li><li>Apple Pay</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Film player: user-initiated, plays with sound -->
+
+<script src="js/data.js"></script>
+<script src="js/build-data.js"></script>
+<script src="js/prototype.js"></script>
+</body>
+</html>

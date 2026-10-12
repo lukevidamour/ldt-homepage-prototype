@@ -1,0 +1,454 @@
+/* =====================================================================
+   MEMO BASE: an emulation of Shopify Motion 12 / Memo behaviour with the
+   proposed LDT *theme settings* applied (colours, type, product tiles).
+
+   Nothing in this file is "custom" in Shopify terms. It represents what the
+   theme does once the settings in IMPLEMENTATION_MAP.md are chosen.
+   Class names follow Motion's real markup (taken from the live Memo demo) so
+   that ldt-shopify.css targets the same selectors it will in the theme.
+   Breakpoints follow Motion: small ≤589px · medium-up ≥590px · desktop ≥769px.
+   ===================================================================== */
+
+:root {
+  /* ---- Theme settings › Colours (one global palette, no schemes in Motion) ---- */
+  --colorBody: #F4EEE6;            /* Background: "Fleece" */
+  --colorTextBody: #233C5C;        /* Text: Thirlmere */
+  --colorBorder: #D3D2CE;          /* Lines and borders */
+  --colorBtnPrimary: #233C5C;      /* Buttons */
+  --colorBtnPrimaryText: #F4EEE6;  /* Button text */
+  --colorSalePrice: #B4532E;
+  --colorSaleTag: #F7A87C;         /* Coniston */
+  --colorSaleTagText: #233C5C;
+  --colorNav: #F4EEE6;             /* Header background (sticky state) */
+  --colorNavText: #233C5C;
+  --colorAnnouncement: #233C5C;
+  --colorAnnouncementText: #F4EEE6;
+  --colorFooter: #233C5C;
+  --colorFooterText: #F4EEE6;
+  --colorHeroText: #F4EEE6;        /* Image treatment › Text */
+  --colorLargeImageBg: #D5CDC6;    /* Animations › Image background (Grasmere) */
+  --colorGridProductBg: #E6DFD6;   /* product tile image ground */
+
+  /* ---- Theme settings › Typography ---- */
+  --typeHeaderPrimary: "Arial Narrow";   /* stands in for the font picker; Hackney is set by the theme-wide Custom CSS */
+  --typeHeaderFallback: "Arial Narrow", "Helvetica Neue", Impact, sans-serif;
+  --typeHeaderWeight: 400;
+  --typeHeaderSize: 64px;          /* Headings › Base size */
+  --typeHeaderLineHeight: 0.88;
+  --typeHeaderSpacing: 0.005em;
+  --typeBasePrimary: "Courier New";
+  --typeBaseFallback: Courier, monospace;
+  --typeBaseWeight: 400;
+  --typeBaseSize: 16px;
+  --typeBaseLineHeight: 1.6;
+  --typeBaseSpacing: 0;
+
+  --pagePadding: 40px;
+  --gridGutter: 22px;
+  --sectionSpacing: 100px;
+  --headerHeight: 92px;
+  --announcementHeight: 36px;
+}
+@media only screen and (max-width: 768px) {
+  :root { --pagePadding: 24px; --headerHeight: 64px; }
+}
+@media only screen and (max-width: 589px) {
+  :root { --pagePadding: 17px; --gridGutter: 12px; --sectionSpacing: 34px; }
+}
+
+/* ---- Reset-ish ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--colorBody);
+  color: var(--colorTextBody);
+  font-family: var(--typeBasePrimary), var(--typeBaseFallback);
+  font-size: var(--typeBaseSize);
+  line-height: var(--typeBaseLineHeight);
+  letter-spacing: var(--typeBaseSpacing);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, video, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+p { margin: 0 0 1em; }
+button { font: inherit; color: inherit; }
+.visually-hidden { position: absolute !important; clip: rect(0 0 0 0); width: 1px; height: 1px; overflow: hidden; white-space: nowrap; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+/* ---- Headings (Motion: all headings use header font; "Capitalize" on) ---- */
+.h1, .h2, .h3, h1, h2, h3 {
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback);
+  font-weight: var(--typeHeaderWeight);
+  letter-spacing: var(--typeHeaderSpacing);
+  line-height: var(--typeHeaderLineHeight);
+  text-transform: uppercase;              /* Typography › Headings › Capitalize */
+  margin: 0 0 20px;
+  display: block;
+}
+.h1, h1 { font-size: var(--typeHeaderSize); }
+.h2, h2 { font-size: calc(var(--typeHeaderSize) * .9); }   /* measured on Motion: 57.6px at 64px base */
+.h3, h3 { font-size: calc(var(--typeHeaderSize) * .5); }
+@media only screen and (max-width: 589px) {
+  .h1, h1 { font-size: calc(var(--typeHeaderSize) * .85); }
+  .h2, h2 { font-size: calc(var(--typeHeaderSize) * .6); }
+}
+.subheading {
+  font-size: 14px;
+  letter-spacing: .02em;
+  margin-bottom: 18px;
+}
+
+/* ---- Layout primitives ---- */
+.page-width { max-width: 1300px; margin: 0 auto; padding: 0 var(--pagePadding); }   /* Motion: border-box, so 1300 includes padding (content 1220 at desktop; measured on the live demo) */
+.index-section { margin: var(--sectionSpacing) 0; }
+.index-section--flush { margin: 0; }
+/* Motion's real section header: block, title at the full heading size (64px measured), link inside the title, floated right */
+.section-header { margin-bottom: 50px; }
+.section-header__title { font-size: var(--typeHeaderSize); margin-bottom: 0; }
+.section-header__link { float: right; font-family: var(--typeBasePrimary), var(--typeBaseFallback); font-size: var(--typeBaseSize); line-height: var(--typeBaseLineHeight); text-transform: none; padding-top: 6px; text-decoration: underline; text-underline-offset: 4px; }
+@media only screen and (max-width: 589px) { .section-header { margin-bottom: 26px; } .section-header__title { font-size: calc(var(--typeHeaderSize) * .85); } .section-header__link { display: none; } }
+
+.grid { list-style: none; margin: 0 0 0 calc(-1 * var(--gridGutter)); padding: 0; }
+.grid::after { content: ""; display: table; clear: both; }
+.grid__item { float: left; min-height: 1px; padding-left: var(--gridGutter); width: 100%; }
+.grid--small-gutters { margin-left: -10px; margin-bottom: -10px; }
+.grid--small-gutters .grid__item { padding-left: 10px; padding-bottom: 10px; }
+.small--one-half { width: 50%; }
+@media only screen and (min-width: 590px) {
+  .small--one-half { width: auto; }
+  .medium-up--one-half { width: 50%; }
+  .medium-up--one-quarter { width: 25%; }
+}
+@media only screen and (max-width: 589px) { .small--one-half { width: 50%; } }
+
+/* ---- Buttons (Memo default: header font, square. LDT overrides in ldt-shopify.css) ---- */
+.btn {
+  -webkit-appearance: none; appearance: none;
+  display: inline-block;
+  background: var(--colorBtnPrimary);
+  color: var(--colorBtnPrimaryText);
+  border: 1px solid transparent;
+  border-radius: 0;
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback);
+  font-size: 14px;
+  padding: 8px 18px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+/* Motion native hover (Animate buttons OFF): primary colours, no arrow, no padding change */
+.btn:hover { background-color: var(--colorBtnPrimary); color: var(--colorBtnPrimaryText); }
+.btn--inverse { background: transparent; border-color: currentColor; color: inherit; }
+.rte a:not(.btn) { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+/* ---- Announcement bar ---- */
+.announcement {
+  background: var(--colorAnnouncement);
+  color: var(--colorAnnouncementText);
+  font-size: 13px;
+  letter-spacing: .02em;
+  height: var(--announcementHeight);
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 16px; text-align: center;
+  position: relative; z-index: 30;
+}
+
+/* ---- Header (Header and menus · Logo left, menu left · Overlay on home · Sticky) ---- */
+.header-wrapper { position: relative; z-index: 20; }
+.header-wrapper--overlay { position: absolute; top: var(--announcementHeight); left: 0; right: 0; }
+.site-header {
+  height: var(--headerHeight);
+  color: var(--colorNavText);
+  background: var(--colorNav);
+  transition: background-color .35s ease, color .35s ease, border-color .35s ease, transform .35s ease;
+  border-bottom: 1px solid transparent;
+}
+.header-wrapper--overlay .site-header { background: transparent; color: var(--colorHeroText); }
+.site-header--stuck {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: var(--colorNav); color: var(--colorNavText);
+  border-bottom-color: var(--colorBorder);
+}
+.header-layout { height: 100%; display: flex; align-items: center; gap: 24px; }
+.header-item--logo { flex: none; }
+/* Layout: "Logo left, menu center": Motion gives logo and icons equal 200px columns (min 130),
+   so the menu sits on the true centre of the bar (values from Motion's theme.css) */
+.header-layout--left-center .header-item--logo,
+.header-layout--left-center .header-item--icons { flex: 0 0 200px; min-width: 130px; max-width: 50%; }
+.header-layout--left-center .header-item--icons { justify-content: flex-end; }
+.header-layout--left-center .header-item--navigation { flex: 1 1 130px; }
+.header-layout--left-center .site-nav { justify-content: center; }
+.site-header__logo { margin: 0; font-size: 0; line-height: 0; }
+.site-header__logo-link { display: block; }
+.site-header__logo img { width: 180px; height: auto; } /* Desktop logo width: 180 */
+.header-item--navigation { flex: 1 1 auto; }
+.site-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; }
+.site-nav__link {
+  display: inline-block; padding: 10px 13px;
+  text-decoration: none; white-space: nowrap;
+  font-size: 15px;   /* Navigation › Text size; "Use heading font" OFF */
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px; background-repeat: no-repeat; background-position: 13px calc(100% - 8px);
+  transition: background-size .35s ease;
+}
+.site-nav__link:hover, .site-nav__link:focus-visible { background-size: calc(100% - 26px) 1px; }
+.site-nav__item--divider { width: 1px; height: 16px; background: currentColor; opacity: .35; margin: 0 10px; }
+.header-item--icons { flex: none; display: flex; align-items: center; gap: 4px; }
+.site-nav__link--icon { padding: 10px; display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; cursor: pointer; }
+.site-nav__link--icon svg { width: 22px; height: 22px; }
+.cart-link__count { font-size: 13px; }
+.site-nav__link--menu { display: none; }
+/* Centred menu needs ~606px + two 200px columns: collapse to the drawer below 1180px (prototype assumption, verify in Motion) */
+@media only screen and (max-width: 1180px) {
+  .header-item--navigation, .header-item--icons .site-nav__link--account { display: none; }
+  .site-nav__link--menu { display: inline-flex; }
+}
+@media only screen and (max-width: 768px) {
+  /* Mobile: Motion logo-center layout: hamburger left, logo centred, cart right */
+  .header-layout { gap: 0; justify-content: space-between; }
+  .header-item--logo { position: absolute; left: 50%; transform: translateX(-50%); }
+  .header-layout--left-center .header-item--icons { flex: 1 1 auto; max-width: none; }
+  .site-header__logo img { width: 120px; }   /* Mobile logo width: 120 */
+  .header-item--icons { width: 100%; justify-content: space-between; }
+  .site-nav__link--search { order: 2; margin-left: auto; }
+  .site-nav__link--cart { order: 3; }
+}
+
+/* Drawer (Motion menu drawer) */
+.drawer { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
+.drawer__scrim { position: absolute; inset: 0; background: rgba(27,26,23,.45); opacity: 0; transition: opacity .3s ease; }
+.drawer__panel {
+  position: absolute; top: 0; bottom: 0; left: 0; width: min(420px, 88vw);
+  background: var(--colorNav); color: var(--colorNavText);
+  transform: translateX(-100%); transition: transform .4s cubic-bezier(.2,.7,.2,1);
+  padding: 22px 24px 32px; overflow-y: auto;
+}
+.drawer.is-open { pointer-events: auto; }
+.drawer.is-open .drawer__scrim { opacity: 1; }
+.drawer.is-open .drawer__panel { transform: none; }
+.drawer__close { background: none; border: 0; padding: 10px; margin: -10px -10px 18px auto; display: block; cursor: pointer; }
+.drawer__close svg { width: 22px; height: 22px; }
+.mobile-nav { list-style: none; margin: 0; padding: 0; }
+.mobile-nav__link { display: flex; align-items: center; justify-content: space-between; min-height: 52px; text-decoration: none; border-bottom: 1px solid var(--colorBorder); font-size: 17px; }
+.mobile-nav__link--primary { font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback); text-transform: uppercase; font-size: 30px; line-height: 1; }
+.mobile-nav__sub { margin-top: 26px; }
+
+/* ---- Video hero ---- */
+.hero { position: relative; overflow: hidden; background: var(--colorLargeImageBg); color: var(--colorHeroText); }
+.hero--100vh { height: 100vh; height: 100svh; min-height: 620px; }
+@media only screen and (max-width: 768px) { .hero--mobile--500px { height: 500px; min-height: 0; } }
+.hero__media { position: absolute; inset: 0; }
+.hero__media video, .hero__media img { width: 100%; height: 100%; object-fit: cover; }
+/* Theme settings › Colors › Image overlays › Overlay gradient */
+.hero__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(27,26,23,.74) 0%, rgba(27,26,23,.42) 34%, rgba(27,26,23,.1) 64%, rgba(27,26,23,.32) 100%);
+}
+.hero__text-wrap { position: relative; height: 100%; z-index: 2; }
+.hero__text-wrap .page-width { display: table; width: 100%; height: 100%; }
+.hero__text-content { display: table-cell; vertical-align: middle; text-align: center; padding: 60px 0; }
+.hero__title { margin: 0; font-size: 54px; }
+/* Motion's native hero cascade (taken from theme.css): title rises out of its mask,
+   subheading fades from 1s, button fades from 1.3s. .loaded is added when media is ready. */
+.animation-cropper { display: inline-flex; overflow: hidden; }
+[data-aos=hero__animation] .animation-contents { opacity: 0; transform: translateY(15px); }
+[data-aos=hero__animation] .hero__link .btn { opacity: 0; }
+.loaded[data-aos=hero__animation] .animation-contents { transform: translateY(0); }
+.loaded[data-aos=hero__animation] .hero__title .animation-contents { animation: rise-up .8s cubic-bezier(.26,.54,.32,1) .3s forwards; }
+.loaded[data-aos=hero__animation] .hero__subtitle .animation-contents { animation: fade-in 2s ease 1s forwards; }
+.loaded[data-aos=hero__animation] .hero__link .animation-contents { opacity: 1; }
+.loaded[data-aos=hero__animation] .hero__link .btn { animation: fade-in 2s ease 1.3s forwards; }
+@keyframes rise-up { 0% { opacity: 1; transform: translateY(120%); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fade-in { 0% { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-aos=hero__animation] .animation-contents, [data-aos=hero__animation] .hero__link .btn { opacity: 1 !important; transform: none !important; animation: none !important; }
+}
+.hero__subtitle { font-size: 22px; margin-top: 14px; }
+.hero__link { margin-top: 26px; }
+
+/* ---- Collection list (skrim collage) ---- */
+.skrim__item { overflow: hidden; }
+.skrim__link { display: block; height: 100%; text-decoration: none; }
+.skrim__item-content { position: relative; height: 100%; width: 100%; overflow: hidden; background: var(--colorLargeImageBg); }
+.skrim__overlay { position: absolute; inset: 0; }
+.skrim__overlay img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.skrim__link:hover .skrim__overlay img { transform: scale(1.03); }
+.skrim__overlay::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(27,26,23,.74) 0%, rgba(27,26,23,.42) 34%, rgba(27,26,23,.1) 64%, rgba(27,26,23,.32) 100%); } /* native: theme Overlay gradient */
+.skrim__title {
+  position: absolute; left: 0; bottom: 0; margin: 0 12.5px 12.5px; z-index: 2;
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback);
+  font-size: calc(var(--typeHeaderSize) * .71);
+  line-height: var(--typeHeaderLineHeight);
+  text-transform: uppercase; color: var(--colorHeroText);
+}
+.skrim__underline-me { display: inline-block; position: relative; /* as Motion */ background-image: linear-gradient(currentColor, currentColor); background-size: 0 2px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size .45s ease; padding-bottom: 4px; }
+.skrim__link:hover .skrim__underline-me { background-size: 100% 2px; }
+.collection--square-large, .collection--tall { height: 600px; }
+.collection--square-small, .collection--wide { height: 300px; }
+@media only screen and (max-width: 589px) {
+  .collection--square-large, .collection--tall { height: 300px; }
+  .collection--square-small, .collection--wide { height: 150px; }
+  .skrim__title { font-size: calc(var(--typeHeaderSize) * .46); }
+}
+
+/* ---- Image with text (feature row) ---- */
+.feature-row { display: flex; align-items: center; justify-content: space-between; margin: 0 6%; gap: 6%; }
+.feature-row__item { flex: 0 1 50%; min-width: 0; }
+.feature-row__images { position: relative; }
+.feature-row__item--overlap-images { padding-bottom: 12%; }
+.feature-row__first-image img, .feature-row__second-image img { width: 100%; height: auto; }
+.feature-row__item--overlap-images .feature-row__first-image { width: 78%; }
+.feature-row__item--overlap-images .feature-row__second-image { width: 46%; position: absolute; right: 0; bottom: 0; }
+.feature-row__text .h1 { margin-bottom: 22px; }
+.feature-row__text .btn { margin-top: 12px; }
+@media only screen and (max-width: 768px) {
+  .feature-row { flex-direction: column; margin: 0; gap: 34px; }
+  .feature-row__item { width: 100%; }
+}
+
+/* ---- Featured collection / product tiles (Theme settings › Product tiles) ---- */
+.grid--uniform .grid__item { margin-bottom: 40px; }
+.grid--uniform .grid__item:nth-child(4n+1) { clear: left; }
+@media only screen and (max-width: 589px) {
+  .grid--uniform .grid__item:nth-child(4n+1) { clear: none; }
+  .grid--uniform .grid__item:nth-child(2n+1) { clear: left; }
+  .grid--uniform .grid__item { margin-bottom: 28px; }
+}
+.grid-product__content { position: relative; }
+.grid-product__link { display: block; text-decoration: none; }
+.grid-product__image-mask { position: relative; overflow: hidden; aspect-ratio: 2 / 3; background: var(--colorGridProductBg); } /* Image size: Portrait 2:3; Zoom to fill: on */
+.grid-product__image-mask img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .45s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+.grid-product__secondary-image { opacity: 0; }   /* Hover to reveal second image: on */
+.grid-product__content:hover .grid-product__secondary-image { opacity: 1; }  /* Motion keys this to the whole tile */
+.grid-product__meta { padding-top: 14px; }
+.grid-product__vendor { font-size: 11px; margin-top: 3px; }
+.grid-product__title { font-size: calc(var(--typeBaseSize) * 1.18); }
+.grid-product__price { margin-top: 4px; }
+/* Enable quick shop: ON. Motion's NATIVE quick view (markup and values from the Memo demo's theme.css):
+   a 65px circle in the button colours, overhanging the image's top-right corner by 15px.
+   It appears when the tile is hovered (or focused) and scales 1.08 when the circle itself is hovered.
+   Hidden on small screens (.small--hide). */
+.quick-product__btn {
+  position: absolute; right: -15px; top: -15px; z-index: 2;
+  width: 65px; height: 65px; border: 0; border-radius: 50%; overflow: hidden; padding: 0;
+  background-color: var(--colorBtnPrimary); color: var(--colorBtnPrimaryText);
+  font-family: var(--typeBasePrimary), var(--typeBaseFallback); font-size: calc(var(--typeBaseSize) * .85); line-height: 1.2;
+  cursor: pointer; opacity: 0; transform: translateY(5px);
+  transition: opacity .15s ease, transform .15s ease-out, background .15s ease;
+}
+.quick-product__label { display: block; position: relative; text-align: center; }
+.grid-product__content:hover .quick-product__btn,
+.grid-product:focus-within .quick-product__btn { opacity: 1; transform: translateY(0); }
+.grid-product__content:hover .quick-product__btn:hover { transform: scale(1.08); transition: none; }
+.grid-product__content:hover .quick-product__btn:active { transform: none; }
+@media only screen and (max-width: 589px) { .small--hide { display: none !important; } }
+.grid-product__tag { position: absolute; top: 10px; left: 10px; z-index: 2; font-size: 12px; padding: 3px 8px; background: var(--colorSaleTag); color: var(--colorSaleTagText); }
+
+/* ---- Rich text ---- */
+.rich-text { text-align: left; }
+.page-width--narrow { max-width: 1000px; }
+
+/* ---- Large image with text box (background-media-text) ---- */
+.background-media-text { position: relative; overflow: hidden; }
+.background-media-text--750 { height: 750px; }
+.background-media-text__image { position: absolute; inset: 0; background: var(--colorLargeImageBg); }
+.background-media-text__image img { width: 100%; height: 100%; object-fit: cover; }
+.background-media-text__inner { position: absolute; inset: 0; z-index: 2; }
+.background-media-text__inner > .page-width { height: 100%; display: flex; align-items: center; }
+.background-media-text__text { background: var(--colorBody); padding: 40px; width: 380px; text-align: left; }
+.background-media-text--right .background-media-text__inner > .page-width { justify-content: flex-end; }
+.background-media-text__text .btn { margin-top: 20px; }
+@media only screen and (max-width: 768px) {
+  .background-media-text--750 { height: auto; }
+  .background-media-text__image { position: relative; height: 420px; }
+  .background-media-text__inner { position: relative; }
+  .background-media-text__inner > .page-width { padding: 0; }
+  .background-media-text__text { width: auto; margin: 0; padding: 30px var(--pagePadding); }
+}
+
+/* ---- Footer group ---- */
+.site-footer { background: var(--colorFooter); color: var(--colorFooterText); padding: 90px 0 30px; position: relative; overflow: hidden; }
+.site-footer a { text-decoration: none; }
+.site-footer__linklist { list-style: none; margin: 0; padding: 0; }
+.site-footer__linklist li { margin-bottom: 8px; }
+.site-footer__linklist a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.site-footer__bottom { margin-top: 70px; padding-top: 22px; border-top: 1px solid rgba(244,238,230,.2); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; font-size: 13px; }
+.footer__newsletter { display: flex; border-bottom: 1px solid currentColor; max-width: 460px; }
+.footer__newsletter-input { flex: 1; background: transparent; border: 0; color: inherit; font: inherit; padding: 12px 0; min-width: 0; }
+.footer__newsletter-input::placeholder { color: inherit; opacity: .6; }
+.footer__newsletter-input:focus { outline: none; }
+.footer__collapsible summary { list-style: none; cursor: default; }
+.footer__collapsible summary::-webkit-details-marker { display: none; }
+@media only screen and (max-width: 768px) {
+  .footer__collapsible summary { cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 48px; border-bottom: 1px solid rgba(244,238,230,.2); margin: 0; }
+  .footer__collapsible summary::after { content: "+"; font-size: 20px; }
+  .footer__collapsible[open] summary::after { content: "–"; }
+  .footer__collapsible .site-footer__linklist { padding: 14px 0 6px; }
+}
+
+/* ---- Theme settings › Animations (Sections: text "Rise up"; Images: "Fade in") ---- */
+[data-animate] { opacity: 0; transform: translateY(14px); transition: opacity .7s cubic-bezier(.26,.54,.32,1), transform .7s cubic-bezier(.26,.54,.32,1); }
+[data-animate].is-visible { opacity: 1; transform: none; }
+[data-animate-image] { opacity: 0; transition: opacity 1s ease; }
+[data-animate-image].is-visible { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  [data-animate], [data-animate-image] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .skrim__overlay img, .grid-product__image-mask img { transition: none !important; }
+}
+
+/* ---- Email signup section (Motion: newsletter-container has no margin; content column max 800px, centred) ---- */
+.newsletter-container { margin: 0 auto; padding: 0; }
+.newsletter-section { display: flex; align-items: center; gap: 40px; padding: 60px 0; }
+.newsletter-section__content { flex: 100%; margin: 0 auto; max-width: 800px; }
+.newsletter-section__content .h2 { margin-bottom: 18px; }
+.newsletter-section__content form { display: flex; width: 100%; }
+.input-group { display: flex; }
+.input-group-btn { display: flex; }
+.input-group-btn .btn { height: 100%; margin-top: 0; }   /* Motion: theme.css */
+.newsletter__input-group { background-color: #fff; margin: 0 0 20px; max-width: 400px; flex: 1; }
+.input-group-field { flex: 1; min-width: 0; border: 0; background: transparent; padding: 12px 14px; font: inherit; color: var(--colorTextBody); }
+@media only screen and (max-width: 589px) { .newsletter-section { flex-direction: column; padding: 30px 0; } }
+
+/* Motion's native outline button (used by the Video hero) */
+.btn--inverse { background-color: transparent !important; border: 2px solid #fff; color: #fff; }
+.btn--inverse:hover, .btn--inverse:active { background-color: #fff !important; color: #000 !important; transition: all .5s ease; }
+.hero__link .btn--inverse { border-color: var(--colorHeroText); color: var(--colorHeroText); }
+
+/* Large image with text box: Motion renders the heading as h2.h3 at the full heading size (measured) */
+.background-media-text__text .h3 { font-size: var(--typeHeaderSize); margin-bottom: 20px; }
+.subtitle { font-size: 14px; letter-spacing: .02em; margin: 0 0 18px; }
+
+/* ---- Footer (Motion: blocks are .grid__item columns with per-block widths; newsletter block = .grid-newsletter) ---- */
+.footer-grid { display: flex; flex-wrap: wrap; margin-left: calc(-1 * var(--gridGutter)); }
+.footer-grid > .grid__item { float: none; padding-left: var(--gridGutter); }
+.footer__title { color: var(--colorFooterText); font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback); font-weight: var(--typeHeaderWeight); line-height: var(--typeHeaderLineHeight); text-transform: uppercase; font-size: calc(var(--typeHeaderSize) * .55); margin: 0 0 20px; }
+.footer__newsletter { position: relative; max-width: 300px; }
+.footer__newsletter-input { width: 100%; max-width: 300px; border: 1px solid rgba(244,238,230,.6); background: transparent; color: inherit; font: inherit; padding: 12px 12px 12px 45px; }
+.footer__newsletter-input::placeholder { color: inherit; opacity: .6; }
+.footer__newsletter-btn { position: absolute; top: 0; bottom: 0; left: 0; width: 46px; border: 0; background: none; color: var(--colorFooterText); cursor: pointer; display: grid; place-items: center; }
+.footer__newsletter-btn svg { width: 22px; height: 22px; }
+.grid-newsletter p { margin-bottom: 22px; }
+.footer__logo-social { display: flex; align-items: flex-end; justify-content: space-between; margin-top: 80px; gap: 24px; }
+.footer__logo { width: 200px; height: auto; }
+.footer__social { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; }
+.footer__social a { display: inline-flex; padding: 10px; }
+.footer__social svg { width: 22px; height: 22px; }
+.payment-icons { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.payment-icons li { font-size: 11px; border: 1px solid rgba(244,238,230,.35); border-radius: 3px; padding: 2px 7px; opacity: .8; }
+@media only screen and (max-width: 768px) {
+  .site-footer { padding-top: 56px; }
+  .footer-grid > .grid__item { width: 100% !important; margin-bottom: 36px; }   /* Motion folds the menus into accordions on phones (shorter than shown here) */
+  .footer__logo-social { margin-top: 44px; }
+  .footer__logo { width: 150px; }
+  .site-footer__bottom { margin-top: 32px; flex-direction: column; align-items: flex-start; }
+}
+
+/* ---- Page template (Online Store › Pages): the film page. Motion makes video embeds in page content responsive ---- */
+.page-content { padding: 56px 0 90px; }
+.page-content .section-header__title { margin: 0 0 28px; }
+.video-wrapper { position: relative; aspect-ratio: 16 / 9; background: #000; }
+.video-wrapper video, .video-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+@media (max-width: 768px) { .page-content { padding: 32px 0 56px; } }

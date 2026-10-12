@@ -1,0 +1,91 @@
+/* =====================================================================
+   PROTOTYPE-ONLY: review tools and non-native extras.
+   Nothing in the first two blocks is part of the Shopify build.
+   ===================================================================== */
+
+/* ---- Review bar ---- */
+.review-bar {
+  position: fixed; left: 12px; bottom: 12px; z-index: 100;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  font: 12px/1.2 ui-monospace, Menlo, monospace; color: #F4EEE6;
+  background: rgba(27,26,23,.86); backdrop-filter: blur(6px);
+  padding: 6px 8px; border-radius: 8px; max-width: calc(100vw - 24px);
+}
+.review-bar[hidden] { display: none !important; }
+.review-bar__label { opacity: .7; padding: 0 4px; }
+.review-bar__btn { font: inherit; color: inherit; background: transparent; border: 1px solid rgba(244,238,230,.35); border-radius: 5px; padding: 5px 8px; cursor: pointer; }
+.review-bar__btn[aria-pressed="true"] { background: #F2ACA2; color: #1B1A17; border-color: #F2ACA2; }
+@media (max-width: 589px) { .review-bar__label { display: none; } }
+
+/* ---- Shopify map: build cards (rendered by js/prototype.js from js/build-data.js) ---- */
+a.review-bar__btn { text-decoration: none; display: inline-block; }
+.review-bar__btn:hover { border-color: #F4EEE6; }
+.map-band, .map-card { display: none; }
+.show-map .map-band { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 12px; align-items: start; padding: 12px; background: #E3DACD; }
+.map-band .map-card { max-height: 70vh; overflow: auto; }
+.show-map .header-wrapper--overlay { top: calc(var(--announcementHeight) + var(--mapBandH, 0px)); }
+.show-map .shopify-section[data-step] { outline: 2px dashed rgba(242,172,162,.95); outline-offset: -2px; }
+.show-map .has-map-card { position: relative; }
+.show-map .map-card {
+  display: block; text-align: left; text-transform: none; letter-spacing: 0; color: #1B1A17;
+  font: 12.5px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: #FFFDF9; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.24);
+}
+.show-map .has-map-card > .map-card { position: absolute; z-index: 55; top: 12px; right: 12px; width: 390px; max-height: calc(100% - 24px); overflow: auto; }
+.show-map #shopify-section-hero > .map-card { top: 150px; max-height: calc(100% - 170px); }
+.map-card__head { position: sticky; top: 0; z-index: 1; display: flex; gap: 10px; align-items: center; padding: 10px 10px 10px 12px; background: #233C5C; color: #F4EEE6; border-radius: 10px 10px 0 0; }
+.map-card.is-min .map-card__head { border-radius: 10px; }
+.map-card__n { font: 400 30px/1 Hackney, "Arial Narrow", sans-serif; color: #F2ACA2; }
+.map-card__head b { display: block; font: 400 21px/1 Hackney, "Arial Narrow", sans-serif; text-transform: uppercase; }
+.map-card__head small { display: block; font-size: 11.5px; opacity: .85; margin-top: 3px; }
+.map-card__min { margin-left: auto; flex: none; width: 28px; height: 28px; border-radius: 6px; border: 1px solid rgba(244,238,230,.4); background: none; color: inherit; font-size: 16px; cursor: pointer; }
+.map-card__body { padding: 4px 12px 12px; }
+.map-card.is-min .map-card__body { display: none; }
+.map-card details { border-bottom: 1px solid #E6DED3; padding: 7px 0; }
+.map-card summary { cursor: pointer; font-weight: 600; color: #233C5C; }
+.map-row { display: grid; grid-template-columns: minmax(0, 40%) minmax(0, 1fr) auto; gap: 8px; align-items: start; padding: 4px 0; }
+.map-row > span:first-child { color: #5d6b7c; }
+.map-row > span:nth-child(2) { word-break: break-word; }
+.map-row a { color: #233C5C; font-weight: 600; }
+.map-copy { font: 11px/1 -apple-system, BlinkMacSystemFont, sans-serif; color: #233C5C; background: #fff; border: 1px solid #d9d2c8; border-radius: 5px; padding: 5px 7px; cursor: pointer; white-space: nowrap; }
+.map-copy:hover { border-color: #233C5C; }
+.map-copy.ok { background: #233C5C; color: #F4EEE6; border-color: #233C5C; }
+.map-files { padding: 8px 0 4px; border-bottom: 1px solid #E6DED3; }
+.map-files small, .map-css > span { color: #5d6b7c; }
+.map-files code { font: 11px ui-monospace, Menlo, monospace; }
+.map-css { display: grid; gap: 6px; margin-top: 10px; padding: 10px; background: #F4EEE6; border-radius: 8px; }
+.map-css b { color: #233C5C; }
+.map-copy--css { font-size: 13px; font-weight: 600; padding: 10px 12px; background: #233C5C; color: #F4EEE6; border-color: #233C5C; }
+.map-copy--css:hover { background: #1b3049; }
+.map-copy--css.ok { background: #3d7a4a; border-color: #3d7a4a; }
+.map-css__wait { color: #a3471f !important; }
+.map-css__wait a, .map-guide { color: #233C5C; font-weight: 600; }
+.map-guide { display: inline-block; margin-top: 10px; }
+@media (max-width: 768px) {
+  .show-map .has-map-card > .map-card { left: 8px; right: 8px; width: auto; top: 8px; max-height: min(75vh, calc(100% - 16px)); }
+  .show-map #shopify-section-hero > .map-card { top: 110px; max-height: calc(100% - 120px); }
+}
+
+/* =====================================================================
+   NON-NATIVE EXTRA (flagged in IMPLEMENTATION_MAP: optional Custom Liquid)
+   Hero pause control for the looping video (WCAG 2.2.2). Keep it unless
+   Motion turns out to provide its own.
+   ===================================================================== */
+.hero__pause {
+  position: absolute; z-index: 3; right: 20px; bottom: 20px;
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid rgba(244,238,230,.5); background: rgba(27,26,23,.25);
+  color: #F4EEE6; display: grid; place-items: center; cursor: pointer;
+  transition: background-color .25s ease;
+}
+.hero__pause:hover { background: rgba(27,26,23,.5); }
+.hero__pause svg { width: 16px; height: 16px; fill: currentColor; }
+.hero__pause .icon-play { display: none; }
+.hero__pause.is-paused .icon-play { display: block; }
+.hero__pause.is-paused .icon-pause { display: none; }
+
+/* Screenshot mode */
+.no-anim *, .no-anim *::before, .no-anim *::after { transition: none !important; animation: none !important; }
+@media (min-width: 769px) { .fullpage .hero--100vh { height: 900px !important; min-height: 0 !important; } }
+
+.no-anim [data-aos=hero__animation] .animation-contents, .no-anim [data-aos=hero__animation] .hero__link .btn { opacity: 1 !important; transform: none !important; }

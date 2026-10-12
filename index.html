@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lake District Tweed — Homepage prototype</title>
+<meta name="robots" content="noindex">
+<link rel="preload" href="assets/fonts/ldt26-hackney.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/memo-base.css">
+<link rel="stylesheet" href="css/ldt-shopify.css">
+<link rel="stylesheet" href="css/review.css">
+</head>
+<body>
+
+<!-- ==================================================================
+     PROTOTYPE REVIEW BAR (not part of the Shopify build)
+     ================================================================== -->
+<div class="review-bar" id="reviewBar" aria-label="Prototype tools">
+  <span class="review-bar__label">LDT homepage prototype</span>
+  <button type="button" class="review-bar__btn" data-toggle="map" aria-pressed="false" title="Show how each section is built in Shopify">Shopify map</button>
+  <a class="review-bar__btn" href="build-guide.html" title="Step-by-step build guide">Build guide →</a>
+</div>
+
+<!-- ==================================================================
+     HEADER GROUP
+     ================================================================== -->
+<div id="shopify-section-announcement" class="shopify-section">
+  <div class="announcement"><span class="announcement__text" data-draft>Delivery message — to confirm</span></div>
+</div>
+
+<div id="shopify-section-header" class="shopify-section" data-step="02">
+  <div class="header-wrapper header-wrapper--overlay" id="headerWrapper">
+    <header class="site-header" id="siteHeader">
+      <div class="page-width header-layout header-layout--left-center">
+        <div class="header-item header-item--logo">
+          <h1 class="site-header__logo">
+            <a href="#" class="site-header__logo-link"><img src="assets/brand/ldt-logo-label-landscape.svg" alt="Lake District Tweed" width="180" height="70"></a>
+          </h1>
+        </div>
+        <nav class="header-item header-item--navigation" aria-label="Primary">
+          <ul class="site-nav">
+            <li><a class="site-nav__link" href="#categories">Throws</a></li>
+            <li><a class="site-nav__link" href="#categories">Clothing</a></li>
+            <li><a class="site-nav__link" href="#categories">Homeware</a></li>
+            <li><a class="site-nav__link" href="#categories">Tweed</a></li>
+            <li><a class="site-nav__link" href="#categories">Yarn</a></li>
+            <li class="site-nav__item--divider" aria-hidden="true"></li>
+            <li><a class="site-nav__link" href="#farmers">Our farmers</a></li>
+            <li><a class="site-nav__link" href="#about">About</a></li>
+          </ul>
+        </nav>
+        <div class="header-item header-item--icons">
+          <button class="site-nav__link site-nav__link--icon site-nav__link--menu" type="button" aria-label="Open menu" aria-controls="menuDrawer" aria-expanded="false" id="menuOpen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+          </button>
+          <a class="site-nav__link site-nav__link--icon site-nav__link--search" href="#" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+          </a>
+          <a class="site-nav__link site-nav__link--icon site-nav__link--account" href="#" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+          </a>
+          <a class="site-nav__link site-nav__link--icon site-nav__link--cart" href="#" aria-label="Basket, 0 items">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 8h16l-1.2 12H5.2z"/><path d="M8.5 8a3.5 3.5 0 0 1 7 0"/></svg>
+            <span class="cart-link__count">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+  </div>
+</div>
+
+<!-- Menu drawer (Motion's mobile menu drawer) -->
+<div class="drawer" id="menuDrawer" aria-hidden="true">
+  <div class="drawer__scrim" data-close-drawer></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <button class="drawer__close" type="button" aria-label="Close menu" data-close-drawer>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>
+    </button>
+    <ul class="mobile-nav">
+      <li><a class="mobile-nav__link mobile-nav__link--primary" href="#categories" data-close-drawer>Throws</a></li>
+      <li><a class="mobile-nav__link mobile-nav__link--primary" href="#categories" data-close-drawer>Clothing</a></li>
+      <li><a class="mobile-nav__link mobile-nav__link--primary" href="#categories" data-close-drawer>Homeware</a></li>
+      <li><a class="mobile-nav__link mobile-nav__link--primary" href="#categories" data-close-drawer>Tweed</a></li>
+      <li><a class="mobile-nav__link mobile-nav__link--primary" href="#categories" data-close-drawer>Yarn</a></li>
+    </ul>
+    <ul class="mobile-nav mobile-nav__sub">
+      <li><a class="mobile-nav__link" href="#farmers" data-close-drawer>Our farmers</a></li>
+      <li><a class="mobile-nav__link" href="#about" data-close-drawer>About</a></li>
+      <li><a class="mobile-nav__link" href="#" data-close-drawer>Account</a></li>
+    </ul>
+  </div>
+</div>
+
+<main id="MainContent">
+
+<!-- ==================================================================
+     02 · VIDEO HERO
+     ================================================================== -->
+<div id="shopify-section-hero" class="shopify-section index-section--hero" data-step="03">
+  <div class="hero hero--100vh hero--mobile--500px" data-section-type="video-section" data-aos="hero__animation">
+    <div class="hero__media">
+      <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-poster.jpg" aria-hidden="true">
+        <source src="assets/video/hero-loop-1080.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero__text-wrap">
+      <div class="page-width">
+        <!-- Motion's own hero markup: text sits in .animation-cropper masks (native rise/fade cascade) -->
+        <div class="hero__text-content">
+          <h2 class="h1 hero__title"><div class="animation-cropper"><div class="animation-contents">The land shapes everything.</div></div></h2>
+          <div class="hero__subtitle"><div class="animation-cropper"><div class="animation-contents">Wear the landscape.</div></div></div>
+          <div class="hero__link"><div class="animation-cropper"><div class="animation-contents"><a href="#categories" class="btn btn--inverse">Shop the collection</a></div></div></div>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="hero__pause" id="heroPause" aria-label="Pause background film" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="icon-pause" d="M8 5h2.5v14H8zM13.5 5H16v14h-2.5z"/><path class="icon-play" d="M8 5v14l11-7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ==================================================================
+     03 · SHOP BY CATEGORY (Collection list, collage)
+     ================================================================== -->
+<div id="shopify-section-categories" class="shopify-section" data-step="04">
+  <div class="index-section" id="categories">
+    <div class="page-width">
+      <div class="section-header" data-animate>
+        <h2 class="section-header__title">Shop by category.</h2>
+      </div>
+      <div class="grid grid--small-gutters">
+        <div class="grid__item medium-up--one-half collection--square-large skrim__item">
+          <a href="#" class="skrim__link skrim__item-content">
+            <div class="skrim__overlay grid__image"><img src="assets/img/cat-throws.jpg" alt="Lake District Tweed throws stacked in a farmhouse room" loading="lazy" data-animate-image></div>
+            <div class="skrim__title"><div class="skrim__underline-me">Throws</div></div>
+          </a>
+        </div>
+        <div class="grid__item small--one-half medium-up--one-quarter collection--square-small skrim__item">
+          <a href="#" class="skrim__link skrim__item-content">
+            <div class="skrim__overlay grid__image"><img src="assets/img/cat-clothing.jpg" alt="Tweed waistcoat hanging on a pink door" loading="lazy" data-animate-image data-placeholder="Clothing image is a placeholder until the planned model photography"></div>
+            <div class="skrim__title"><div class="skrim__underline-me">Clothing</div></div>
+          </a>
+        </div>
+        <div class="grid__item small--one-half medium-up--one-quarter collection--square-small skrim__item">
+          <a href="#" class="skrim__link skrim__item-content">
+            <div class="skrim__overlay grid__image"><img src="assets/img/cat-homeware.jpg" alt="Tweed cushion on a checked throw" loading="lazy" data-animate-image></div>
+            <div class="skrim__title"><div class="skrim__underline-me">Homeware</div></div>
+          </a>
+        </div>
+        <div class="grid__item small--one-half medium-up--one-quarter collection--square-small skrim__item">
+          <a href="#" class="skrim__link skrim__item-content">
+            <div class="skrim__overlay grid__image"><img src="assets/img/cat-tweed.jpg" alt="A fan of Lake District Tweed cloths in every colour" loading="lazy" data-animate-image></div>
+            <div class="skrim__title"><div class="skrim__underline-me">Tweed</div></div>
+          </a>
+        </div>
+        <div class="grid__item small--one-half medium-up--one-quarter collection--square-small skrim__item">
+          <a href="#" class="skrim__link skrim__item-content">
+            <div class="skrim__overlay grid__image"><img src="assets/img/cat-yarn.jpg" alt="Cones of weaving yarn" loading="lazy" data-animate-image></div>
+            <div class="skrim__title"><div class="skrim__underline-me">Yarn</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================================
+     04 · OUR FARMERS (Image with text, overlapping images)
+     ================================================================== -->
+<div id="shopify-section-farmers" class="shopify-section" data-step="05">
+  <div class="index-section" id="farmers">
+    <div class="page-width feature-row-wrapper">
+      <div class="feature-row">
+        <div class="feature-row__item feature-row__images feature-row__item--overlap-images">
+          <div class="feature-row__first-image"><img src="assets/img/farmers-main.jpg" alt="A farmer bottle-feeding a lamb" loading="lazy" width="1200" height="1500" data-animate-image></div>
+          <div class="feature-row__second-image"><img src="assets/img/farmers-detail.jpg" alt="A hand resting in thick fleece" loading="lazy" width="800" height="800" data-animate-image></div>
+        </div>
+        <div class="feature-row__item feature-row__text feature-row__text--right" data-animate>
+          <div class="subheading">Our farmers</div>
+          <h2 class="h1">Behind every thread,</h2>
+          <div class="rte">
+            <p>a farming family.</p>
+            <p data-draft>Every cloth starts with a flock. Our tweeds and throws are woven from the wool of named Lake District farms. Here are a few of them.</p>
+            <ul class="farm-register" data-source="Farm names from live product descriptions — confirm with LDT before publishing">
+              <li><a href="#valleys">Naddle Farm — Haweswater →</a></li>
+              <li><a href="#valleys">Racy Ghyll Farm — Ullswater →</a></li>
+              <li><a href="#valleys">Glencoyne Farm — Ullswater →</a></li>
+              <li><a href="#valleys">Harry Place Farm — Langdale →</a></li>
+              <li><a href="#valleys">Brow Top Farm — Windermere →</a></li>
+              <li><a href="#valleys">Nibthwaite Grange Farm — Coniston →</a></li>
+            </ul>
+          </div>
+          <a href="#" class="btn">Meet our farmers</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================================
+     05 · BEST SELLERS (Featured collection)
+     ================================================================== -->
+<div id="shopify-section-bestsellers" class="shopify-section" data-step="06">
+  <div class="index-section">
+    <div class="page-width">
+      <div class="section-header" data-animate>
+        <h2 class="section-header__title">Best sellers. <a class="section-header__link" href="#">View all</a></h2>
+      </div>
+      <div class="grid grid--uniform" id="productGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================================
+     06 · EVERY COLOUR (Rich text + Collection list of 13 valleys)
+     ================================================================== -->
+<div id="shopify-section-valleys" class="shopify-section" data-step="07">
+  <div class="index-section" id="valleys">
+    <div class="page-width">
+      <div class="section-header" data-animate>
+        <h2 class="section-header__title">Every colour, lifted from the land.</h2>
+      </div>
+      <div class="grid grid--small-gutters" id="valleyGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================================
+     07 · ABOUT + THE FILM (Large image with text box)
+     ================================================================== -->
+<div id="shopify-section-about" class="shopify-section index-section--flush" data-step="08">
+  <div class="background-media-text background-media-text--750 background-media-text--left" id="about">
+    <div class="background-media-text__image">
+      <!-- Motion: one image + a focal point (rendered as object-position). Focal point = the walker -->
+      <img src="assets/img/about-lakeshore.jpg" alt="A woman walking along the shore of a lake beneath an old tree" loading="lazy" style="object-position: 68% 62%">
+    </div>
+    <div class="background-media-text__inner">
+      <div class="page-width">
+        <div class="background-media-text__aligner">
+          <div class="background-media-text__text" data-animate>
+            <p class="subtitle">About Lake District Tweed</p>
+            <h2 class="h3">A piece of the Lake District, made to last.</h2>
+            <div class="rte">
+              <p data-source="Supplied brand copy (Option 3 artwork). Remaining sentences contain claims to verify, e.g. '100% local wool'">Woven from the fleeces of sheep grazing the Lake District fells, our tweed carries the strength, character and beauty of this unique landscape.</p>
+              <p data-draft data-source="Draft from live product copy: throws designed by the Lancs &amp; Lakes Guild of Spinners, Weavers and Dyers; cloth woven in the North West of England. Verify with LDT.">Our designs begin with the Lancs &amp; Lakes Guild of Spinners, Weavers and Dyers, and every cloth is woven in the North West of England.</p>
+              <p><a href="#">Read our story</a></p>
+            </div>
+            <a href="film.html" class="btn">Watch the film · 1:43</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ==================================================================
+     08 · FOOTER (Footer group › Footer: Newsletter block + 3 Menu blocks + Logo & social)
+     Motion markup: footer blocks are .grid__item columns; the newsletter block has .grid-newsletter
+     ================================================================== -->
+<div id="shopify-section-footer" class="shopify-section" data-step="09">
+  <footer class="site-footer">
+    <div class="page-width">
+      <div class="grid footer-grid">
+        <div class="grid__item grid-newsletter" style="width:40%">
+          <h2 class="footer__title" data-draft>News from the valleys.</h2>
+          <div class="footer__collapsible">
+            <p data-draft>Occasional letters about new cloth, the farms and the year on the fells.</p>
+            <form class="contact-form" onsubmit="event.preventDefault()">
+              <label class="visually-hidden" for="newsletterEmail">Enter your email</label>
+              <div class="footer__newsletter">
+                <input type="email" class="footer__newsletter-input" id="newsletterEmail" placeholder="Enter your email" autocomplete="email">
+                <button type="submit" class="footer__newsletter-btn" aria-label="Subscribe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="grid__item" style="width:20%">
+          <h2 class="footer__title">Shop</h2>
+          <ul class="site-footer__linklist">
+            <li><a href="#">Throws</a></li><li><a href="#">Clothing</a></li><li><a href="#">Homeware</a></li>
+            <li><a href="#">Tweed</a></li><li><a href="#">Yarn</a></li><li><a href="#">All products</a></li>
+          </ul>
+        </div>
+        <div class="grid__item" style="width:20%">
+          <h2 class="footer__title">About</h2>
+          <ul class="site-footer__linklist">
+            <li><a href="#">Our farmers</a></li><li><a href="#">Our story</a></li><li><a href="film.html">The film</a></li><li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="grid__item" style="width:20%">
+          <h2 class="footer__title">Help</h2>
+          <ul class="site-footer__linklist">
+            <li><a href="#">Delivery</a></li><li><a href="#">Returns</a></li><li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__logo-social">
+        <img class="footer__logo" src="assets/brand/ldt-logo-label-landscape.svg" alt="Lake District Tweed" width="200" height="78" loading="lazy">
+        <ul class="footer__social" aria-label="Social">
+          <li><a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".8" fill="currentColor"/></svg></a></li>
+          <li><a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M14 21v-7.5h2.6l.4-3H14V8.7c0-.9.3-1.5 1.6-1.5H17V4.6A20 20 0 0 0 14.8 4.5c-2.3 0-3.8 1.4-3.8 3.9v2.1H8.5v3H11V21"/></svg></a></li>
+        </ul>
+      </div>
+      <div class="site-footer__bottom">
+        <span class="footer__copyright">© 2026 Lake District Tweed</span>
+        <ul class="payment-icons" aria-label="Payment methods (Shopify renders these natively)">
+          <li>Visa</li><li>Mastercard</li><li>Amex</li><li>PayPal</li><li>Apple Pay</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Film player: user-initiated, plays with sound -->
+
+<script src="js/data.js"></script>
+<script src="js/build-data.js"></script>
+<script src="js/prototype.js"></script>
+</body>
+</html>

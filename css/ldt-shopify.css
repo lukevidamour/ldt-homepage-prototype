@@ -1,0 +1,128 @@
+/* =====================================================================
+   LDT × SHOPIFY CUSTOM CSS (v0.4: verified against Motion's REAL markup)
+   Everything here is CSS Luke pastes into Shopify. Nothing else is needed:
+   no theme-code edits, so all of it lives in theme-editor settings, which
+   Shopify carries over on theme updates.
+
+   HOW TO READ THIS FILE
+   - "THEME-WIDE" → Theme settings › Custom CSS (limit 1,500 characters).
+   - "SECTION: x" → that section's own Custom CSS field (limit 500 characters).
+     The `#shopify-section-x ` prefix only exists to scope the prototype. In
+     Shopify, DROP it: Shopify adds the scope itself.
+   - Asset URLs: ../assets/... paths point at prototype files. In Shopify they
+     become the Files CDN URLs. build-kit/LDT-Build-Guide.html rewrites them
+     automatically once you paste one Files link.
+   - Verified 7 Oct 2026 by injecting each block into the live Memo demo
+     (Motion 12, prototype/tools/real-theme-test.js), scoped the way Shopify
+     scopes section CSS.
+   - Character counts: python3 tools/css-budget.py
+   ===================================================================== */
+
+
+/* ----- THEME-WIDE (Theme settings › Custom CSS) --------------------------- */
+
+/* Hackney from Content › Files, set as the heading font. This replaces the theme-code edit,
+   so it survives theme updates and works on a trial theme. html:root beats Motion's :root. */
+@font-face{font-family:Hackney;src:url(../assets/fonts/ldt26-hackney.woff2) format("woff2");font-display:swap}
+/* Motion's heading Base size slider stops at 60px; the design's 64px is set here (verified variable: --typeHeaderSize). */
+html:root{--typeHeaderPrimary:Hackney;--typeHeaderWeight:400;--typeHeaderSize:64px}
+/* Motion puts the theme Overlay gradient on Collection list tiles too; keep tiles to a light fade (the hero keeps the full gradient). */
+.skrim__link.skrim__item-content .skrim__overlay:after{background:linear-gradient(#1B1A1700 50%,#1B1A178c)}
+
+/* Buttons become "labels": Courier, 6px radius (from the logo label). Hover inverts the colours.
+   Requires Theme settings › Animations › Animate buttons OFF (Motion's arrow animation is a white PNG). */
+.btn{font-family:var(--typeBasePrimary),monospace;font-size:15px;letter-spacing:.02em;text-transform:none;line-height:1.2;border-radius:6px;padding:15px 26px;border:1px solid #233C5C}
+.btn:hover{background:#F4EEE6;color:#233C5C}
+/* Native quick-view circle: same inversion on hover (Motion keeps its own 1.08 scale) */
+.quick-product__btn:hover{background:#F4EEE6;color:#233C5C;box-shadow:inset 0 0 0 1px #233C5C}
+
+/* Product tiles: Hackney cloth-label title, Courier price. Show vendor is OFF (vendor is real store data). */
+.grid-product__title{font-family:var(--typeHeaderPrimary);text-transform:uppercase;font-size:24px;line-height:.95}
+.grid-product__price{font-size:15px;margin-top:8px}
+@media(max-width:589px){.grid-product__title{font-size:19px}}
+
+/* Hero: top scrim so the overlay navigation stays legible on every frame (review: nav failed AA on 23/44 frames).
+   Chevron device sits on Motion's own content container with background-origin content-box, so its right edge
+   always lands on the content column's right edge; it rises from the bottom and bleeds off it (as in the posts),
+   sized as a share of the hero height. Only one Video hero exists. */
+.hero__text-wrap{background:linear-gradient(#1B1A17c7,#1B1A1780 90px,#1B1A1700 260px)}
+.hero__text-wrap .page-width{background:url(../assets/brand/ldt26-chevrons-fleece.svg) no-repeat right bottom/auto 48% content-box}
+@media(max-width:768px){.hero__text-wrap .page-width{background-size:auto 32%}}
+
+/* Layout fixes from the design review */
+.site-footer__linklist a{display:inline-block;padding:4px 0}
+.feature-row{margin:0}
+.rte p{max-width:60ch}
+
+
+/* ----- SECTION: Header (Header group › Header and menus) ----------------- */
+#shopify-section-header .site-header--stuck{box-shadow:0 1px 0 #233C5C1f}
+
+
+/* ----- SECTION: Hero (Video hero) ---------------------------------------- */
+#shopify-section-hero .hero__text-content{vertical-align:bottom;text-align:left;padding:0 0 clamp(48px,9vh,96px)}
+#shopify-section-hero .hero__title{font-size:112px;line-height:.86;max-width:4.2em}
+#shopify-section-hero .hero__title::first-line,#shopify-section-hero .hero__title .animation-contents::first-line{color:#F2ACA2}
+/* Motion's hero button is its native OUTLINE button; its hover is a hard-coded white/black !important fill. This tints it to brand. */
+#shopify-section-hero .btn--inverse:hover{background-color:#F4EEE6!important;color:#233C5C!important}
+@media(max-width:768px){#shopify-section-hero .hero__title{font-size:56px}#shopify-section-hero .hero__subtitle{font-size:17px}}
+
+
+/* ----- SECTION: Shop by category (Collection list, collage sizes) -------- */
+#shopify-section-categories .skrim__title{font-size:58px;margin:0 22px 18px}
+#shopify-section-categories .collection--square-large .skrim__title{font-size:104px;margin:0 30px 24px}
+/* One lake colour per tile, by block order: Throws Eskdale · Clothing Haweswater · Homeware Wasdale · Tweed Fleece · Yarn Coniston */
+#shopify-section-categories :nth-child(1)>a>.skrim__title{color:#F2ACA2}
+#shopify-section-categories :nth-child(2)>a>.skrim__title{color:#98B9BB}
+#shopify-section-categories :nth-child(3)>a>.skrim__title{color:#EEC59A}
+#shopify-section-categories :nth-child(5)>a>.skrim__title{color:#F7A87C}
+@media(max-width:589px){#shopify-section-categories .collection--square-large{height:340px}#shopify-section-categories .collection--square-small{height:190px}#shopify-section-categories .skrim__title{font-size:32px}#shopify-section-categories .collection--square-large .skrim__title{font-size:60px}}
+
+
+/* ----- SECTION: Our farmers (Image with text, 2 overlapping images) ------ */
+#shopify-section-farmers .index-section{margin:0;padding:110px 0;color:#F4EEE6;background:#233C5C}
+#shopify-section-farmers .h1{max-width:3em}
+#shopify-section-farmers .h1::first-line{color:#EEC59A}
+#shopify-section-farmers .subheading{color:#98B9BB}
+#shopify-section-farmers .rte p:first-child{font-size:22px;color:#F2ACA2}
+#shopify-section-farmers ul{padding:0}
+#shopify-section-farmers li{list-style:none;border-bottom:1px solid #fff3}
+#shopify-section-farmers li a{display:block;padding:9px 0;text-decoration:none}
+#shopify-section-farmers li a:hover{color:#F2ACA2}
+#shopify-section-farmers .btn{background:#F4EEE6;color:#233C5C;border-color:#F4EEE6}
+#shopify-section-farmers .btn:hover{background:#233C5C;color:#F4EEE6}
+@media(max-width:768px){#shopify-section-farmers .index-section{padding:0 0 56px}}
+
+
+/* ----- SECTION: Best sellers (Featured collection) ----------------------- */
+@media(max-width:589px){#shopify-section-bestsellers .grid-product:nth-child(n+5){display:none}}
+
+
+/* ----- SECTION: Valleys (Collection list, 14 blocks; band baked into images) ----- */
+#shopify-section-valleys .grid__item{width:14.28%;height:auto;aspect-ratio:.82}
+#shopify-section-valleys .skrim__overlay:after{display:none}
+#shopify-section-valleys .skrim__title{font:13px var(--typeBasePrimary);text-transform:lowercase;color:#1B1A17;margin:0 11px 10px}
+#shopify-section-valleys .skrim__underline-me::first-letter{text-transform:uppercase}
+#shopify-section-valleys .grid__item:nth-child(3) .skrim__title,#shopify-section-valleys .grid__item:nth-child(14) .skrim__title{color:#F4EEE6}
+@media(max-width:768px){#shopify-section-valleys .grid{display:flex;overflow-x:auto;scroll-snap-type:x}#shopify-section-valleys .grid__item{width:40%;flex:none;scroll-snap-align:start}}
+
+
+/* ----- SECTION: About (Large image with text box) ------------------------ */
+#shopify-section-about .background-media-text__inner{background:linear-gradient(90deg,#1B1A17c7,#1B1A1700 62%)}
+#shopify-section-about .background-media-text__text{background:none;width:min(560px,42vw);padding:0;color:#F4EEE6}
+#shopify-section-about h2{max-width:4.6em}
+#shopify-section-about h2::first-line{color:#98B9BB}
+#shopify-section-about .subtitle{color:#EEC59A}
+#shopify-section-about .btn{background:#F4EEE6;color:#233C5C;border-color:#F4EEE6}
+#shopify-section-about .btn:hover{background:#233C5C;color:#F4EEE6}
+@media(max-width:768px){#shopify-section-about .background-media-text__inner{background:#1B1A17}#shopify-section-about .background-media-text__text{width:auto;padding:34px 17px 46px}}
+
+
+/* ----- SECTION: Footer (Footer group › Footer: Newsletter block + 3 Menu blocks) ----- */
+/* Motion sets every footer title in the heading font. The column labels become small Courier; the newsletter
+   block (.grid-newsletter) gets the big Hackney title with a pink first line, as in the approved layout. */
+#shopify-section-footer .footer__title{font:14px/1.4 var(--typeBasePrimary);letter-spacing:.02em;text-transform:none;opacity:.7}
+#shopify-section-footer .grid-newsletter .footer__title{font:57.6px/.9 var(--typeHeaderPrimary);letter-spacing:0;text-transform:uppercase;opacity:1;max-width:4.2em}
+#shopify-section-footer .grid-newsletter .footer__title::first-line{color:#F2ACA2}
+#shopify-section-footer .footer__newsletter-btn:hover{color:#F2ACA2}
+@media(max-width:589px){#shopify-section-footer .grid-newsletter .footer__title{font-size:34px}}
