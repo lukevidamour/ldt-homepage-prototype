@@ -128,7 +128,7 @@
         : `<button type="button" class="map-copy map-copy--css" data-css="${st.css.key}">Copy CSS</button>`) + `</div>`;
     return `<div class="map-card__head"><span class="map-card__n">${st.n}</span><span><b>${esc(st.title)}</b><small>Motion: ${esc(st.motion)} · ${esc(st.where)}</small></span>` +
       `<button type="button" class="map-card__min" aria-expanded="true" aria-label="Collapse card">–</button></div>` +
-      `<div class="map-card__body">${groups}${files}${css}<a class="map-guide" href="build-guide.html#step-${st.n}">Step ${st.n} in the build guide →</a></div>`;
+      `<div class="map-card__body"><p class="map-live map-live--${st.live.level}">${st.live.level === "safe" ? "✓ " : ""}${esc(st.live.text)}</p>${groups}${files}${css}<a class="map-guide" href="build-guide.html#step-${st.n}">Step ${st.n} in the build guide →</a></div>`;
   }
   const narrow = window.matchMedia("(max-width: 768px)");
   const band = document.createElement("div");

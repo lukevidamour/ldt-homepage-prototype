@@ -14,6 +14,10 @@ window.LDT_BUILD = {
 "steps": [
 {
 "n": "01",
+"live": {
+"level": "safe",
+"text": "Safe: changes only the Memo draft theme."
+},
 "key": "setup",
 "title": "Setup",
 "sub": "Theme settings and the heading font",
@@ -369,6 +373,10 @@ null
 },
 {
 "n": "02",
+"live": {
+"level": "safe",
+"text": "Safe: new menus and the Memo draft theme only. Never edit or delete the menus that already exist."
+},
 "key": "header",
 "mapOpen": [
 3
@@ -512,6 +520,10 @@ null
 },
 {
 "n": "03",
+"live": {
+"level": "safe",
+"text": "Safe: the Memo draft theme and new files only."
+},
 "key": "hero",
 "mapOpen": [
 1
@@ -637,6 +649,10 @@ null
 },
 {
 "n": "04",
+"live": {
+"level": "note",
+"text": "Safe to build now. The collection images in this folder change the live site, so they wait for step 10."
+},
 "key": "categories",
 "title": "Shop by category",
 "sub": "Five collection tiles",
@@ -740,6 +756,10 @@ null
 },
 {
 "n": "05",
+"live": {
+"level": "safe",
+"text": "Safe: the Memo draft theme and new files only."
+},
 "key": "farmers",
 "title": "Our farmers",
 "sub": "Two photos, the farms and a button",
@@ -882,6 +902,10 @@ null
 },
 {
 "n": "06",
+"live": {
+"level": "safe",
+"text": "Safe: changes only the Memo draft theme."
+},
 "key": "bestsellers",
 "title": "Best sellers",
 "sub": "Eight products",
@@ -934,6 +958,10 @@ null
 },
 {
 "n": "07",
+"live": {
+"level": "note",
+"text": "Safe to build now. The collection images in this folder change the live site, so they wait for step 10."
+},
 "key": "valleys",
 "title": "Every colour",
 "sub": "Fourteen valley swatches",
@@ -1150,6 +1178,10 @@ null
 },
 {
 "n": "08",
+"live": {
+"level": "note",
+"text": "Safe, plus one new page (The film). It can be reached by its address, but nothing on the live site links to it."
+},
 "key": "about",
 "title": "About and the film",
 "sub": "The film page, then the lakeshore photo and the Watch the film button",
@@ -1267,6 +1299,10 @@ true
 },
 {
 "n": "09",
+"live": {
+"level": "safe",
+"text": "Safe: changes only the Memo draft theme."
+},
 "key": "footer",
 "mapOpen": [
 1

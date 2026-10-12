@@ -41,6 +41,9 @@ a.review-bar__btn { text-decoration: none; display: inline-block; }
 .map-card__min { margin-left: auto; flex: none; width: 28px; height: 28px; border-radius: 6px; border: 1px solid rgba(244,238,230,.4); background: none; color: inherit; font-size: 16px; cursor: pointer; }
 .map-card__body { padding: 4px 12px 12px; }
 .map-card.is-min .map-card__body { display: none; }
+.map-live { margin: 8px 0 4px; padding: 7px 10px; border-radius: 6px; font-weight: 600; font-size: 12px; }
+.map-live--safe { background: #E3EFE5; color: #2f6b3c; }
+.map-live--note { background: #F6E7D2; color: #8a4f0f; }
 .map-card details { border-bottom: 1px solid #E6DED3; padding: 7px 0; }
 .map-card summary { cursor: pointer; font-weight: 600; color: #233C5C; }
 .map-row { display: grid; grid-template-columns: minmax(0, 40%) minmax(0, 1fr) auto; gap: 8px; align-items: start; padding: 4px 0; }

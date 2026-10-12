@@ -10,11 +10,11 @@
 @font-face { font-family: Hackney; src: url("assets/fonts/ldt26-hackney.woff2") format("woff2"); font-display: swap; }
 :root {
   --bg: #F4EEE6; --ink: #233C5C; --soft: #5d6b7c; --line: #d9d2c8; --card: #fffdf9;
-  --pink: #F2ACA2; --blue: #98B9BB; --ok: #3d7a4a; --warn: #a3471f;
+  --pink: #F2ACA2; --blue: #98B9BB; --ok: #3d7a4a; --warn: #a3471f; --amber: #9a5b12;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #15191f; --ink: #eef0f2; --soft: #a5afbb; --line: #2c333d; --card: #1c2129; --ok: #7cc68a; --warn: #f0a07a; } }
-:root[data-theme="dark"] { --bg: #15191f; --ink: #eef0f2; --soft: #a5afbb; --line: #2c333d; --card: #1c2129; --ok: #7cc68a; --warn: #f0a07a; }
+  --bg: #15191f; --ink: #eef0f2; --soft: #a5afbb; --line: #2c333d; --card: #1c2129; --ok: #7cc68a; --warn: #f0a07a; --amber: #e8b06a; } }
+:root[data-theme="dark"] { --bg: #15191f; --ink: #eef0f2; --soft: #a5afbb; --line: #2c333d; --card: #1c2129; --ok: #7cc68a; --warn: #f0a07a; --amber: #e8b06a; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
@@ -97,6 +97,14 @@ button.cp.ok { background: #233C5C; color: #F4EEE6; border-color: #233C5C; }
 .show-sk .sk { display: block; }
 .sk .skbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 10px 8px 12px; font-size: 13px; font-weight: 600; color: #6b47b8; border-bottom: 1px solid #c9b8e8; }
 .sk pre { margin: 0; padding: 12px; max-height: 200px; overflow: auto; font: 12px/1.5 ui-monospace, Menlo, monospace; white-space: pre-wrap; }
+.risk { display: inline-block; font: 700 11px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: .04em; text-transform: uppercase; border-radius: 999px; padding: 2px 9px; margin-right: 6px; vertical-align: 2px; white-space: nowrap; }
+.risk.safe { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); }
+.risk.page, .risk.buy { background: color-mix(in srgb, #d8892b 20%, transparent); color: var(--amber); }
+.risk.live { background: var(--warn); color: #fff; }
+.step[data-risk="live"] { border-left: 4px solid var(--warn); padding-left: 12px; background: color-mix(in srgb, var(--warn) 6%, transparent); }
+.riskline { display: flex; gap: 4px; align-items: baseline; font-size: 14.5px; margin: 0 0 12px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 10px; font-size: 14px; }
+nav.toc .risk { font-size: 9.5px; padding: 0 6px; margin: 0 0 0 4px; }
 .sk-only { display: none; } .show-sk .sk-only { display: block; }
 footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--line); margin-top: 60px; padding-top: 18px; }
 @media (max-width: 600px) { h2 { font-size: 34px; } .looks .pair { grid-template-columns: 1fr; } td:first-child { width: 36%; } }
@@ -125,7 +133,7 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
   <a href="#step-07"><b>07</b>Every colour</a>
   <a href="#step-08"><b>08</b>About and the film</a>
   <a href="#step-09"><b>09</b>Footer</a>
-  <a href="#step-10"><b>10</b>Check, approve, launch</a>
+  <a href="#step-10"><b>10</b>Check, approve, launch<span class="risk live">live</span></a>
   <div class="prog"><span id="prog">0 done</span><div class="bar"><i id="progbar"></i></div></div>
 </nav>
 
@@ -138,11 +146,18 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
   <b>It's a live store.</b> The client's shop is trading on its current theme. You build in a <b>draft</b> theme called <b>Memo</b>, which customers can't see.
   <ul>
     <li>Only ever edit the <b>Memo</b> theme: Online Store › Themes › Memo › <b>Customize</b>. <b>Never press Publish</b>, and never open the live theme's editor.</li>
-    <li><span class="pill safe">safe</span> Uploading files: every file in the kit starts with <code>ldt26-</code>, so nothing clashes with the client's files. Never use the <i>Replace</i> option on an existing file.</li>
-    <li><span class="pill safe">safe</span> Creating <b>new</b> menus. The live theme only shows the menus it already uses. Never edit or delete an existing menu.</li>
-    <li><span class="pill live">changes the live site</span> Collections, collection images and products are shared by every theme. Don't create or edit any until step 10 (after the client says yes).</li>
+    <li>Uploading files is safe: every file in the kit starts with <code>ldt26-</code>, so nothing clashes with the client's files. Never use the <i>Replace</i> option on an existing file.</li>
+    <li>Creating <b>new</b> menus is safe: the live theme only shows the menus it already uses. Never edit or delete an existing menu.</li>
+    <li>Collections, collection images and products are shared by every theme, so they change the live site. Don't create or edit any until step 10 (after the client says yes).</li>
     <li>Press <b>Save</b> (top right of the editor) at the end of every step.</li>
   </ul>
+  <b>Every step below is labelled:</b>
+  <div class="legend">
+    <span><span class="risk safe">✓ Safe</span>only the Memo draft, new files or new menus. Customers can't see it.</span>
+    <span><span class="risk page">New page</span>step 08 only: the film page. Reachable by its address, not linked from the live site.</span>
+    <span><span class="risk buy">Purchase</span>buying Motion. Doesn't change the site; the client approves it.</span>
+    <span><span class="risk live">⚠ Changes the live site</span>step 10, after the client's written OK. Customers see it.</span>
+  </div>
 </div>
 
 <div class="box">
@@ -155,8 +170,8 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
   </ol>
 </div>
 
-<div class="step"><input type="checkbox" data-check="s-1"><div><span class="where">Editor</span><b>Open the right theme and check Save works.</b> Online Store › Themes: the <b>Memo</b> theme is under the live one. Click <b>Customize</b> on Memo (check the editor's top bar says Memo). Click <i>Announcement bar</i>, change a letter, press <b>Save</b>, then change it back and Save again. If it won't save, stop and tell Luke.</div></div>
-<div class="step"><input type="checkbox" data-check="s-3"><div><span class="where">Editor</span><b>Find Courier New.</b> Theme settings › Typography › Body text › Font › Change: search for <b>Courier New</b>. It's in Shopify's font library, so it should be listed.</div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="s-1"><div><span class="where">Editor</span><b>Open the right theme and check Save works.</b> Online Store › Themes: the <b>Memo</b> theme is under the live one. Click <b>Customize</b> on Memo (check the editor's top bar says Memo). Click <i>Announcement bar</i>, change a letter, press <b>Save</b>, then change it back and Save again. If it won't save, stop and tell Luke.</div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="s-3"><div><span class="where">Editor</span><b>Find Courier New.</b> Theme settings › Typography › Body text › Font › Change: search for <b>Courier New</b>. It's in Shopify's font library, so it should be listed.</div></div>
 
 <div class="box sk-only">
   <b>Sidekick (optional):</b> Shopify's AI assistant can change theme settings for you. In the theme editor press <b>⌘ + .</b> (or click the Sidekick icon), paste <b>one</b> purple prompt at a time, and check what it proposes before you accept. Then check the values against the table and press <b>Save</b>: Sidekick doesn't save for you.
@@ -170,20 +185,21 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
 <!-- ============================ 01 SETUP ============================ -->
 <h2 id="step-01"><span class="n">01</span> Setup</h2>
 <p class="sub">Theme settings and the heading font: the colours, type, buttons and product tiles used everywhere.</p>
+<p class="riskline" data-live="01"></p>
 <div class="folder" data-folder="01"></div>
-<div class="step"><input type="checkbox" data-check="01-files"><div><span class="where">Admin › Content › Files</span><b>Upload the font.</b> Drag <code>ldt26-hackney.woff2</code> from the folder into Files.
+<div class="step" data-risk="safe"><input type="checkbox" data-check="01-files"><div><span class="where">Admin › Content › Files</span><b>Upload the font.</b> Drag <code>ldt26-hackney.woff2</code> from the folder into Files.
   <div class="files" data-files="01"></div>
   <div class="note">Check the name in Files is exactly <code>ldt26-hackney.woff2</code>. If Shopify added extra characters, tell Luke.</div>
   <div class="field" id="link-font"><label for="u-font">Then copy its link (the link icon next to the file) and paste it here</label><input id="u-font" data-store="u-font" placeholder="https://cdn.shopify.com/s/files/1/…/files/ldt26-hackney.woff2?v=…" autocomplete="off"><span class="hint" id="u-font-hint">The theme CSS below needs this link. Paste it and it fills in automatically.</span></div></div></div>
-<div class="step"><input type="checkbox" data-check="01-colours"><div><span class="where">Theme settings › Colors</span><b>Colours.</b><table data-group="01:0"></table></div></div>
-<div class="step"><input type="checkbox" data-check="01-type"><div><span class="where">Theme settings › Typography</span><b>Typography.</b><table data-group="01:1"></table>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="01-colours"><div><span class="where">Theme settings › Colors</span><b>Colours.</b><table data-group="01:0"></table></div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="01-type"><div><span class="where">Theme settings › Typography</span><b>Typography.</b><table data-group="01:1"></table>
   <div class="note">Heading Base size stops at 60 in the editor; the Custom CSS below sets the design's 64. Colors has more groups than this table; anything not listed stays as it is.</div></div></div>
-<div class="step"><input type="checkbox" data-check="01-icons"><div><span class="where">Theme settings › Icons</span><b>Icons.</b><table data-group="01:2"></table></div></div>
-<div class="step"><input type="checkbox" data-check="01-anim"><div><span class="where">Theme settings › Animations</span><b>Animations.</b><table data-group="01:3"></table></div></div>
-<div class="step"><input type="checkbox" data-check="01-tiles"><div><span class="where">Theme settings › Products, Product tiles</span><b>Products and product tiles.</b><table data-group="01:4"></table></div></div>
-<div class="step"><input type="checkbox" data-check="01-social"><div><span class="where">Theme settings › Cart, Social media</span><b>Cart icon and social links.</b><table data-group="01:5"></table>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="01-icons"><div><span class="where">Theme settings › Icons</span><b>Icons.</b><table data-group="01:2"></table></div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="01-anim"><div><span class="where">Theme settings › Animations</span><b>Animations.</b><table data-group="01:3"></table></div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="01-tiles"><div><span class="where">Theme settings › Products, Product tiles</span><b>Products and product tiles.</b><table data-group="01:4"></table></div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="01-social"><div><span class="where">Theme settings › Cart, Social media</span><b>Cart icon and social links.</b><table data-group="01:5"></table>
   <div class="note">The footer shows an icon for every social link filled in here, so the demo's links must go.</div></div></div>
-<div class="step"><input type="checkbox" data-check="01-css"><div><span class="where">Theme settings › Custom CSS</span><b>Paste the theme CSS</b>, then <b>Save</b>. It loads Hackney for every heading, styles the buttons and product tiles, and draws the hero's top shading and chevrons. (The chevrons file is uploaded in step 03; until then they just don't show.)
+<div class="step" data-risk="safe"><input type="checkbox" data-check="01-css"><div><span class="where">Theme settings › Custom CSS</span><b>Paste the theme CSS</b>, then <b>Save</b>. It loads Hackney for every heading, styles the buttons and product tiles, and draws the hero's top shading and chevrons. (The chevrons file is uploaded in step 03; until then they just don't show.)
   <div class="cssbox" data-css="01"></div>
   <div class="note warn">If Shopify shows an error about <code>@font-face</code>, tell Luke before going further. There's a fallback.</div>
   <div class="note">Check: headings across the page are now in Hackney, the rough condensed capitals.</div></div></div>
@@ -192,17 +208,18 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
 <!-- ============================ 02 MENUS AND HEADER ============================ -->
 <h2 id="step-02"><span class="n">02</span> Menus and header</h2>
 <p class="sub">Four new menus (safe: new menus don't change the live site), then the announcement bar and header.</p>
+<p class="riskline" data-live="02"></p>
 <div class="folder" data-folder="02"></div>
-<div class="step"><input type="checkbox" data-check="02-menu"><div><span class="where">Admin › Content › Menus › Add menu</span><b>Create the main menu</b>, named <b>LDT 2026 · Main</b> <button class="cp" data-copy="LDT 2026 · Main">Copy name</button>. For each item, type the label and pick or paste the link:
+<div class="step" data-risk="safe"><input type="checkbox" data-check="02-menu"><div><span class="where">Admin › Content › Menus › Add menu</span><b>Create the main menu</b>, named <b>LDT 2026 · Main</b> <button class="cp" data-copy="LDT 2026 · Main">Copy name</button>. For each item, type the label and pick or paste the link:
   <table data-group="02:0"></table>
   <div class="note">Clothing and Homeware are added in step 10, once those collections exist.</div></div></div>
-<div class="step"><input type="checkbox" data-check="02-footmenus"><div><span class="where">Admin › Content › Menus › Add menu</span><b>Create the three footer menus</b> (used in step 09). Name them exactly <b>Shop</b>, <b>About</b> and <b>Help</b>: Motion shows each menu's name as its footer column heading.
+<div class="step" data-risk="safe"><input type="checkbox" data-check="02-footmenus"><div><span class="where">Admin › Content › Menus › Add menu</span><b>Create the three footer menus</b> (used in step 09). Name them exactly <b>Shop</b>, <b>About</b> and <b>Help</b>: Motion shows each menu's name as its footer column heading.
   <table data-group="02:1"></table>
   <div class="note">Type the links as shown. <code>/pages/the-film</code> doesn't exist yet (step 08 makes it), which is fine. If the store has no shipping or refund policy yet, leave those two items out and tell Luke. If menus called Shop, About or Help already exist, still create new ones and tell Luke.</div></div></div>
-<div class="step"><input type="checkbox" data-check="02-files"><div><span class="where">Admin › Content › Files</span><b>Upload the logo.</b>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="02-files"><div><span class="where">Admin › Content › Files</span><b>Upload the logo.</b>
   <div class="files" data-files="02"></div></div></div>
-<div class="step"><input type="checkbox" data-check="02-announce"><div><span class="where">Editor › Header group › Announcement bar</span><b>Announcement bar.</b><table data-group="02:2"></table></div></div>
-<div class="step"><input type="checkbox" data-check="02-header"><div><span class="where">Editor › Header group › Header and menus</span><b>Header and menus.</b> For the logos, click <i>Select image</i> and choose the file you just uploaded.<table data-group="02:3"></table>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="02-announce"><div><span class="where">Editor › Header group › Announcement bar</span><b>Announcement bar.</b><table data-group="02:2"></table></div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="02-header"><div><span class="where">Editor › Header group › Header and menus</span><b>Header and menus.</b> For the logos, click <i>Select image</i> and choose the file you just uploaded.<table data-group="02:3"></table>
   <div class="cssbox" data-css="02"></div></div></div>
 <div class="sk" data-sk="02-header"></div>
 <details class="looks" data-looks="02"></details>
@@ -210,16 +227,17 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
 <!-- ============================ 03 HERO ============================ -->
 <h2 id="step-03"><span class="n">03</span> Hero</h2>
 <p class="sub">First set out the six homepage sections, then build the video hero.</p>
+<p class="riskline" data-live="03"></p>
 <div class="folder" data-folder="03"></div>
-<div class="step"><input type="checkbox" data-check="03-layout"><div><span class="where">Editor › Template</span><b>Set out the homepage.</b> The Memo demo has about a dozen sections. Make the Template hold exactly these six, in this order:
+<div class="step" data-risk="safe"><input type="checkbox" data-check="03-layout"><div><span class="where">Editor › Template</span><b>Set out the homepage.</b> The Memo demo has about a dozen sections. Make the Template hold exactly these six, in this order:
   <table data-group="03:0"></table>
   <div class="note"><b>Add:</b> click <b>Add section</b> at the bottom of the Template list for the two Memo doesn't have. <b>Reorder:</b> drag the handle beside each section name. <b>Remove the rest:</b> click a section and use <b>Remove section</b> at the bottom of its settings, or hide it with the eye icon. Don't fill in any content yet.</div></div></div>
 <div class="sk" data-sk="03-layout"></div>
-<div class="step"><input type="checkbox" data-check="03-files"><div><span class="where">Admin › Content › Files</span><b>Upload the hero files.</b> Shopify processes the video, which can take a few minutes. Check the chevrons file is named exactly <code>ldt26-chevrons-fleece.svg</code> in Files (the CSS finds it by name); if Shopify added characters, tell Luke.
+<div class="step" data-risk="safe"><input type="checkbox" data-check="03-files"><div><span class="where">Admin › Content › Files</span><b>Upload the hero files.</b> Shopify processes the video, which can take a few minutes. Check the chevrons file is named exactly <code>ldt26-chevrons-fleece.svg</code> in Files (the CSS finds it by name); if Shopify added characters, tell Luke.
   <div class="files" data-files="03"></div>
   <div class="field"><label for="u-hero">Copy the video's link from Files and paste it here</label><input id="u-hero" data-store="u-hero" placeholder="https://cdn.shopify.com/videos/…" autocomplete="off"><span class="hint">It goes in the Background video link setting below.</span></div>
   <div class="note">The hero video lives in Shopify Files, not Vimeo: background videos from Vimeo don't autoplay on phones.</div></div></div>
-<div class="step"><input type="checkbox" data-check="03-hero"><div><span class="where">Editor › Template › Video hero</span><b>Video hero.</b><table data-group="03:1"></table>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="03-hero"><div><span class="where">Editor › Template › Video hero</span><b>Video hero.</b><table data-group="03:1"></table>
   <div class="cssbox" data-css="03"></div>
   <div class="note">This CSS sets the big two-colour headline (pink first line), puts the text at the bottom left and gives the button its hover. The chevrons and top shading come from the theme CSS (step 01): they appear once the chevrons file is uploaded.</div></div></div>
 <div class="sk" data-sk="03-hero"></div>
@@ -228,8 +246,9 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
 <!-- ============================ 04 CATEGORIES ============================ -->
 <h2 id="step-04"><span class="n">04</span> Shop by category</h2>
 <p class="sub">The first Collection list: five tiles, Throws large.</p>
+<p class="riskline" data-live="04"></p>
 <div class="folder" data-folder="04"></div>
-<div class="step"><input type="checkbox" data-check="04-section"><div><span class="where">Editor › Template › Collection list (1st)</span><b>Heading and five blocks.</b> Keep the blocks in this order: the CSS colours each title by its position.
+<div class="step" data-risk="safe"><input type="checkbox" data-check="04-section"><div><span class="where">Editor › Template › Collection list (1st)</span><b>Heading and five blocks.</b> Keep the blocks in this order: the CSS colours each title by its position.
   <table data-group="04:0"></table><table data-group="04:1"></table>
   <div class="note">Each tile shows its collection's own title and image. Clothing and Homeware don't exist yet (step 10, after client OK), so blocks 2 and 3 use <b>GIFTS</b> for now. The new tile images in this folder go onto the collections in step 10, because Collection list blocks have no image setting of their own.</div>
   <div class="cssbox" data-css="04"></div></div></div>
@@ -239,9 +258,10 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
 <!-- ============================ 05 FARMERS ============================ -->
 <h2 id="step-05"><span class="n">05</span> Our farmers</h2>
 <p class="sub">Image with text: two overlapping photos, a navy panel and a list of farms.</p>
+<p class="riskline" data-live="05"></p>
 <div class="folder" data-folder="05"></div>
-<div class="step"><input type="checkbox" data-check="05-files"><div><span class="where">Admin › Content › Files</span><b>Upload the two photos.</b><div class="files" data-files="05"></div></div></div>
-<div class="step"><input type="checkbox" data-check="05-section"><div><span class="where">Editor › Template › Image with text</span><b>Settings.</b><table data-group="05:0"></table>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="05-files"><div><span class="where">Admin › Content › Files</span><b>Upload the two photos.</b><div class="files" data-files="05"></div></div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="05-section"><div><span class="where">Editor › Template › Image with text</span><b>Settings.</b><table data-group="05:0"></table>
   <b>The farm list.</b> In the Text box, after the two paragraphs, click the <b>bulleted list</b> button and add one line per farm. Select each line's text and use the <b>link</b> button to link it:
   <table data-group="05:1"></table>
   <div class="cssbox" data-css="05"></div>
@@ -252,7 +272,8 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
 <!-- ============================ 06 BEST SELLERS ============================ -->
 <h2 id="step-06"><span class="n">06</span> Best sellers</h2>
 <p class="sub">Featured collection: eight products, four on phones.</p>
-<div class="step"><input type="checkbox" data-check="06-section"><div><span class="where">Editor › Template › Featured collection</span><b>Settings.</b><table data-group="06:0"></table>
+<p class="riskline" data-live="06"></p>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="06-section"><div><span class="where">Editor › Template › Featured collection</span><b>Settings.</b><table data-group="06:0"></table>
   <div class="cssbox" data-css="06"></div>
   <div class="note">The product tiles' look (Hackney titles, quick view, second image on hover) comes from step 01. This CSS only limits phones to four products.</div></div></div>
 <div class="sk" data-sk="06"></div>
@@ -261,8 +282,9 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
 <!-- ============================ 07 VALLEYS ============================ -->
 <h2 id="step-07"><span class="n">07</span> Every colour</h2>
 <p class="sub">The second Collection list: fourteen valley swatches, two rows of seven (a swipe strip on phones).</p>
+<p class="riskline" data-live="07"></p>
 <div class="folder" data-folder="07"></div>
-<div class="step"><input type="checkbox" data-check="07-section"><div><span class="where">Editor › Template › Collection list (2nd)</span><b>Heading and fourteen blocks</b>, in this order:
+<div class="step" data-risk="safe"><input type="checkbox" data-check="07-section"><div><span class="where">Editor › Template › Collection list (2nd)</span><b>Heading and fourteen blocks</b>, in this order:
   <table data-group="07:0"></table><table data-group="07:1"></table>
   <div class="cssbox" data-css="07"></div>
   <div class="note">The tiles show each collection's title (the CSS turns ESKDALE into Eskdale) and its image. Each valley's colour band is part of the new collection images in this folder, which go on in step 10. Until then the tiles show the current collection photos, which is expected in the draft.</div></div></div>
@@ -272,16 +294,16 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
 <!-- ============================ 08 ABOUT ============================ -->
 <h2 id="step-08"><span class="n">08</span> About and the film</h2>
 <p class="sub">Large image with text box: the lakeshore photo, the brand words and the Watch the film button.</p>
+<p class="riskline" data-live="08"></p>
 <div class="folder" data-folder="08"></div>
 <div class="note">Motion only plays Vimeo in a pop-up from its Video hero, so the film gets its own page: the Watch the film button and the footer's "The film" link go to <code>/pages/the-film</code>, which holds the Vimeo player.</div>
-<div class="step"><input type="checkbox" data-check="08-vimeo"><div><span class="where">Vimeo</span><b>Upload the film.</b> Upload <code>LDT-Brand-Film-MASTER-upload-to-Vimeo.mp4</code> (folder 08 › <i>Film - upload to Vimeo</i>; 1:43, with sound) to the client's Vimeo account (ask Luke for access). In the video's settings, if the account offers them:
+<div class="step" data-risk="safe"><input type="checkbox" data-check="08-vimeo"><div><span class="where">Vimeo</span><b>Upload the film.</b> Upload <code>LDT-Brand-Film-MASTER-upload-to-Vimeo.mp4</code> (folder 08 › <i>Film - upload to Vimeo</i>; 1:43, with sound) to the client's Vimeo account (ask Luke for access). In the video's settings, if the account offers them:
   <ul><li><b>Privacy:</b> Hide from Vimeo (it can still be embedded).</li><li><b>Embed:</b> Anywhere for now, so the client's preview link can play it. At launch it can be limited to <code>lakedistricttweed.com</code>.</li><li><b>End screen:</b> nothing (no recommendations).</li></ul>
   Then <b>Share › Embed</b> and copy the embed code.</div></div>
-<div class="step"><input type="checkbox" data-check="08-page"><div><span class="where">Admin › Online Store › Pages › Add page</span><b>Make the film page.</b> <span class="pill">new page: nothing on the live site links to it</span>
-  <table data-group="08:0"></table>
+<div class="step" data-risk="page"><input type="checkbox" data-check="08-page"><div><span class="where">Admin › Online Store › Pages › Add page</span><b>Make the film page.</b>   <table data-group="08:0"></table>
   <div class="note">In the page's content box, the <b>Insert video</b> button (film icon) takes the embed code. Save, then check the page shows the player.</div></div></div>
-<div class="step"><input type="checkbox" data-check="08-files"><div><span class="where">Admin › Content › Files</span><b>Upload the photo.</b><div class="files" data-files="08"></div></div></div>
-<div class="step"><input type="checkbox" data-check="08-section"><div><span class="where">Editor › Template › Large image with text box</span><b>Settings.</b> After choosing the image, click it and drag the <b>focal point</b> onto the woman walking (right of centre), so phones crop to her.
+<div class="step" data-risk="safe"><input type="checkbox" data-check="08-files"><div><span class="where">Admin › Content › Files</span><b>Upload the photo.</b><div class="files" data-files="08"></div></div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="08-section"><div><span class="where">Editor › Template › Large image with text box</span><b>Settings.</b> After choosing the image, click it and drag the <b>focal point</b> onto the woman walking (right of centre), so phones crop to her.
   <table data-group="08:1"></table>
   <div class="cssbox" data-css="08"></div>
   <div class="note">Try the button in the editor's preview: it should open the film page.</div></div></div>
@@ -291,8 +313,9 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
 <!-- ============================ 09 FOOTER ============================ -->
 <h2 id="step-09"><span class="n">09</span> Footer</h2>
 <p class="sub">The newsletter signup and three menus, in one band.</p>
-<div class="step"><input type="checkbox" data-check="09-email"><div><span class="where">Editor › Footer group</span><b>Remove the separate Email signup section</b>: click it, then <b>Remove section</b> at the bottom of its settings (or hide it with the eye icon). The signup moves into the footer itself.</div></div>
-<div class="step"><input type="checkbox" data-check="09-footer"><div><span class="where">Editor › Footer group › Footer</span><b>Footer blocks</b>, in this order. Remove any other blocks. The first four widths add up to 100%, which keeps them on one row, and Logo and social wraps underneath; on phones Motion stacks them.
+<p class="riskline" data-live="09"></p>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="09-email"><div><span class="where">Editor › Footer group</span><b>Remove the separate Email signup section</b>: click it, then <b>Remove section</b> at the bottom of its settings (or hide it with the eye icon). The signup moves into the footer itself.</div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="09-footer"><div><span class="where">Editor › Footer group › Footer</span><b>Footer blocks</b>, in this order. Remove any other blocks. The first four widths add up to 100%, which keeps them on one row, and Logo and social wraps underneath; on phones Motion stacks them.
   <table data-group="09:1"></table>
   <b>Then the Footer section's own settings:</b><table data-group="09:2"></table>
   <div class="cssbox" data-css="09"></div></div></div>
@@ -302,22 +325,24 @@ footer.end { color: var(--soft); font-size: 14px; border-top: 1px solid var(--li
 <!-- ============================ 10 CHECK, APPROVE, LAUNCH ============================ -->
 <h2 id="step-10"><span class="n">10</span> Check, approve, launch</h2>
 <p class="sub">Compare, share with the client, and only after their written OK, the parts that change the live site.</p>
+<p class="riskline"><span class="risk safe">✓ Safe</span> Comparing, and sharing a preview with the client.</p>
+<p class="riskline"><span class="risk live">⚠ Changes the live site</span> Everything under "After the client approves", and only after their written OK.</p>
 <div class="folder" data-folder="10"></div>
-<div class="step"><input type="checkbox" data-check="10-compare"><div><b>Compare</b> desktop and phone (the editor's phone icon, top of the editor) with the prototype and the pictures below. Open the prototype's <a href="index.html?map">Shopify map</a> to see how each section is built.</div></div>
-<div class="step"><input type="checkbox" data-check="10-share"><div><span class="where">Online Store › Themes</span><b>Share a preview with the client.</b> On the Memo theme: <b>⋯ › Preview</b>, then click the <b>link</b> button in the preview bar to copy a shareable link. It <b>expires after 2 days</b>, so make a fresh one each time you send it (new links don't break old ones).</div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="10-compare"><div><b>Compare</b> desktop and phone (the editor's phone icon, top of the editor) with the prototype and the pictures below. Open the prototype's <a href="index.html?map">Shopify map</a> to see how each section is built.</div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="10-share"><div><span class="where">Online Store › Themes</span><b>Share a preview with the client.</b> On the Memo theme: <b>⋯ › Preview</b>, then click the <b>link</b> button in the preview bar to copy a shareable link. It <b>expires after 2 days</b>, so make a fresh one each time you send it (new links don't break old ones).</div></div>
 <details class="looks" data-looks="10"></details>
 
-<h3 style="margin-top:34px">After the client approves <span class="pill live">changes the live site</span></h3>
-<div class="step"><input type="checkbox" data-check="10-collections"><div><span class="where">Admin › Products › Collections › Create collection</span><b>Create four collections.</b> The live <code>/collections</code> page lists new collections as soon as they're published.
+<h3 style="margin-top:34px">After the client approves <span class="risk live">⚠ Changes the live site</span></h3>
+<div class="step" data-risk="live"><input type="checkbox" data-check="10-collections"><div><span class="where">Admin › Products › Collections › Create collection</span><b>Create four collections.</b> The live <code>/collections</code> page lists new collections as soon as they're published.
   <table><tr><td>Clothing</td><td>Manual: Luke and the client choose the products</td><td></td></tr>
   <tr><td>Homeware</td><td>Manual: Luke and the client choose the products</td><td></td></tr>
   <tr><td>Best sellers</td><td>Automated · condition <b>Price is greater than 0</b> · sort <b>Best selling</b></td><td></td></tr>
   <tr><td>All cloth</td><td>Automated · condition <b>Product type is equal to Tweed</b></td><td></td></tr></table>
   Then: Clothing and Homeware into category blocks 2 and 3 (step 04) and the Main and Shop menus (step 02); Best sellers into step 06; All cloth into valley block 14 (step 07).</div></div>
-<div class="step"><input type="checkbox" data-check="10-images"><div><span class="where">Admin › Products › Collections</span><b>Collection images.</b> Open each collection and set its image from the <i>Collection images - after client OK</i> folders: step 04's five onto Throws, Clothing, Homeware, TWEED and YARN; step 07's onto the 13 valley collections, with 14 onto All cloth. These show on the live homepage, <code>/collections</code> and collection pages straight away, so this is best done on launch day.</div></div>
-<div class="step"><input type="checkbox" data-check="10-buy"><div><b>Launch day:</b> make sure Motion has been purchased: Online Store › Themes › Memo › <b>Buy</b>. A trial theme can't be published, buying needs an account allowed to approve charges (usually the store owner), and it's final sale.</div></div>
-<div class="step"><input type="checkbox" data-check="10-publish"><div><span class="where">Online Store › Themes</span><b>Publish Memo.</b> The old theme moves to the theme library as a backup; don't delete it.</div></div>
-<div class="step"><input type="checkbox" data-check="10-live"><div><b>Check the live site</b> on desktop and phone: the menus, the film button and film page, newsletter signup and <code>/collections</code>. Optional: in Vimeo, limit Embed to <code>lakedistricttweed.com</code>.</div></div>
+<div class="step" data-risk="live"><input type="checkbox" data-check="10-images"><div><span class="where">Admin › Products › Collections</span><b>Collection images.</b> Open each collection and set its image from the <i>Collection images - after client OK</i> folders: step 04's five onto Throws, Clothing, Homeware, TWEED and YARN; step 07's onto the 13 valley collections, with 14 onto All cloth. These show on the live homepage, <code>/collections</code> and collection pages straight away, so this is best done on launch day.</div></div>
+<div class="step" data-risk="buy"><input type="checkbox" data-check="10-buy"><div><b>Launch day:</b> make sure Motion has been purchased: Online Store › Themes › Memo › <b>Buy</b>. A trial theme can't be published, buying needs an account allowed to approve charges (usually the store owner), and it's final sale.</div></div>
+<div class="step" data-risk="live"><input type="checkbox" data-check="10-publish"><div><span class="where">Online Store › Themes</span><b>Publish Memo.</b> The old theme moves to the theme library as a backup; don't delete it.</div></div>
+<div class="step" data-risk="safe"><input type="checkbox" data-check="10-live"><div><b>Check the live site</b> on desktop and phone: the menus, the film button and film page, newsletter signup and <code>/collections</code>. Optional: in Vimeo, limit Embed to <code>lakedistricttweed.com</code>.</div></div>
 
 <footer class="end">Generated from the tested CSS by <code>tools/build-data.py</code>; every CSS block was checked on Motion's real markup. Next stage, not in this guide: the collection and product page templates.<br><br>
 <button class="cp" id="reset">Clear my ticks and links in this browser</button></footer>
@@ -339,6 +364,11 @@ const fill = (t) => t.replace("{{HERO_URL}}", val("u-hero") || "paste the video'
 const cssOf = (key) => (B.css[key] || "").replaceAll("{{FILES}}", prefix() || "FILES_URL/");
 const STEPS_BY_FOLDER = { "10": { folder: "10 Check, approve and launch" } };
 
+// live-site labels: one on every step, one summary under every step heading
+const RISK_LABEL = { safe: "✓ Safe", page: "New page", buy: "Purchase", live: "⚠ Changes the live site" };
+$$(".step[data-risk]").forEach((st) => st.querySelector(":scope > div").insertAdjacentHTML("afterbegin", `<span class="risk ${st.dataset.risk}">${RISK_LABEL[st.dataset.risk]}</span>`));
+$$("[data-live]").forEach((el) => { const l = STEP[el.dataset.live].live;
+  el.innerHTML = `<span class="risk ${l.level === "safe" ? "safe" : "page"}">${l.level === "safe" ? "✓ Safe" : "Note"}</span> ${esc(l.text)}`; });
 // folders and files
 $$("[data-folder]").forEach((el) => { const st = STEP[el.dataset.folder] || STEPS_BY_FOLDER[el.dataset.folder]; el.innerHTML = `Handover folder: <b>${esc(st.folder)}</b>`; });
 $$("[data-files]").forEach((el) => {
